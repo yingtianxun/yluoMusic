@@ -2,15 +2,331 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/slide_menu_background"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.yluo.yluomusic.MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout 
+        android:layout_width="270dp"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_header_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/slide_menu_header_icon" />
+
+        <TextView
+            android:id="@+id/tv_header_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:contextClickable="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="#ffffff"
+            android:textSize="10dp"
+            android:text="登录/注册>>>"
+            android:clickable="true"/>
+
+        <ImageButton
+            android:id="@+id/btn_header_change_skin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/slide_menu_change_skin" />
+
+    </LinearLayout>
+    
+    <ScrollView
+        android:layout_width="270dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="70dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- 消息中心 -->
+            <RelativeLayout 
+                android:id="@+id/rl_message_center"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:clickable="true">
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="30dp"
+	                android:drawableLeft="@drawable/slide_menu_message_icon"
+	                android:drawablePadding="10dp"
+	                android:gravity="center_vertical"
+	                android:textColor="#ffffff"
+	                android:text="消息中心"
+	                />
+	            <TextView 
+	                android:layout_alignParentRight="true"
+	                android:layout_width="wrap_content"
+	                android:layout_height="30dp"
+	                android:gravity="center_vertical"
+	                android:textColor="#ffffff"
+	                android:drawableLeft="@drawable/slide_menu_message_icon"
+	                android:drawablePadding="10dp"
+	                android:text=""
+	               	android:visibility="invisible"
+	                />    
+        	</RelativeLayout>
+        	
+            <!-- 会员中心 -->
+            <RelativeLayout 
+                android:id="@+id/rl_member_center"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:clickable="true">
+	            
+	            <TextView 
+	                android:layout_width="wrap_content"
+	                android:layout_height="30dp"
+	                android:drawableLeft="@drawable/slide_menu_message_icon"
+	                android:drawablePadding="10dp"
+	                android:gravity="center_vertical"
+	                android:textColor="#ffffff"
+	                android:text="会员中心"
+	                />
+	            <TextView 
+	                android:layout_alignParentRight="true"
+	                android:layout_width="wrap_content"
+	                android:layout_height="30dp"
+	                android:gravity="center_vertical"
+	                android:textColor="#ffffff"
+	                android:drawableLeft="@drawable/slide_menu_message_icon"
+	                android:drawablePadding="10dp"
+	                android:text=""
+	               	android:visibility="invisible"
+	                />    
+        	</RelativeLayout>
+        	
+        	<!-- 定时关闭-->
+       		<RelativeLayout 
+       		    android:id="@+id/rl_time_close"
+          	  	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:clickable="true">
+            	 <TextView 
+	              	 android:layout_width="match_parent"
+	              	 android:layout_height="20dp"
+	              	 android:gravity="center_vertical"
+	               	 android:textColor="#ffffff"
+	               	 android:drawableLeft="@drawable/slide_menu_timeclose_icon"
+	                 android:drawablePadding="10dp"
+	                 android:text="定时关闭"
+                />
+            	 <TextView 
+            	     android:layout_alignParentRight="true"
+            	     android:layout_width="wrap_content"
+            	     android:layout_height="30dp"
+            	     android:textColor="#ffffff"
+            	     android:drawableLeft="@drawable/slide_menu_timeclose_icon"
+            	     android:drawablePadding="10dp"
+            	     android:text=""
+            	     android:visibility="invisible"/>	 	 
+        	</RelativeLayout>
+        	
+        	<!-- 蝰蛇音效 -->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_sound"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+        	        android:drawablePadding="10dp"
+            	    android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:text="蝰蛇音效"/>
+        	    <TextView 
+        	        android:layout_alignParentRight="true"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text=""
+        	        android:visibility="invisible"/>
+        	</RelativeLayout>
+        	
+        	<!-- 听歌识曲 -->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_listen_song"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text="听歌识曲"/>
+        	    <TextView 
+        	        android:layout_alignParentRight="true"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text=""
+        	        android:visibility="invisible"/>    
+        	</RelativeLayout>
+        	
+        	<!-- 启动问候音 -->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_hello"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:drawableLeft="@drawable/slide_menu_hello_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text="启动问候音"/>
+        	    <TextView 
+        	        android:layout_alignParentRight="true"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#dddddd"
+        	        android:textSize="10dp"
+            	    android:gravity="center_vertical"
+        	        android:text="经典版"/> 
+        	</RelativeLayout>
+        	
+        	<!-- 分割线 -->
+    		<View android:layout_width="match_parent"
+    		    android:layout_height="1px"
+    		    
+    		    android:background="#55ffffff"/>
+        	
+        	<!-- 仅WIFI联网 -->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_wifi_connect"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:drawableLeft="@drawable/slide_menu_wifi_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text="仅WIFI联网"/>
+        	    <CheckBox 
+        	        android:button="@null"
+        	        android:padding="0dp"
+        	        android:layout_width="30dp"
+        	        android:layout_height="25dp"
+        	        android:textColor="#ffffff"
+            	    android:gravity="center_vertical"
+        	        android:layout_alignParentRight="true"
+        	       	android:background="@drawable/slide_menu_checkbox_close"
+        	        />
+        	</RelativeLayout>
+        	
+        	<!-- 桌面歌词  android:drawableLeft="@drawable/slide_menu_checkbox_close"-->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_desk_lyric"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+        	        android:drawableLeft="@drawable/slide_menu_hello_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text="桌面歌词"/>
+        	    <CheckBox 
+        	        android:button="@null"
+        	        android:padding="0dp"
+        	        android:layout_width="30dp"
+        	        android:layout_height="25dp"
+        	        android:layout_alignParentRight="true"
+        	        android:background="@drawable/slide_menu_checkbox_close"
+        	        />
+        	</RelativeLayout>
+        	
+        	<!-- 锁屏歌词 -->
+        	<RelativeLayout 
+        	    android:id="@+id/rl_lock_lyric"
+        	    android:layout_width="match_parent"
+        	    android:layout_height="wrap_content"
+        	    android:clickable="true">
+        	    <TextView 
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="30dp"
+        	        android:textColor="#ffffff"
+        	        android:drawableLeft="@drawable/slide_menu_hello_icon"
+        	        android:drawablePadding="10dp"
+        	        android:text="锁频歌词"/>
+        	    <CheckBox 
+        	        android:button="@null"
+        	        android:padding="0dp"
+        	        android:layout_width="30dp"
+        	        android:layout_height="25dp"
+        	        android:layout_alignParentRight="true"
+        	        android:background="@drawable/slide_menu_checkbox_close"
+        	        />
+        	</RelativeLayout>
+        </LinearLayout>     
+    </ScrollView>
+    <!-- android:background="@android:color/white" -->
+    <View 
+        android:layout_marginTop="350dp"
+        android:layout_width="270dp"
+        android:layout_height="1px"
+        android:background="#55ffffff"/>
+    <LinearLayout 
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+        <!-- 设置&退出 -->
+        <RelativeLayout 
+            android:layout_width="match_parent"
+       		android:layout_height="wrap_content"
+       		android:layout_gravity="center"
+       		android:clickable="true">
+            <TextView
+                android:id="@+id/tv_setting"
+			    android:layout_width="wrap_content"
+			    android:layout_height="30dp"
+        	    android:textColor="#dddddd"
+			    android:gravity="center_vertical"
+			    android:drawableLeft="@drawable/slide_menu_setting_icon"
+			    android:drawablePadding="10dp"
+			    android:text="设置"
+			    android:clickable="true"/>
+		 	<TextView
+		 	    android:id="@+id/tv_back"
+		 	    android:layout_alignParentRight="true"
+			    android:layout_width="wrap_content"
+			    android:layout_height="30dp"
+        	    android:textColor="#dddddd"
+			    android:gravity="center_vertical"
+			    android:drawableLeft="@drawable/slide_menu_setting_icon"
+			    android:drawablePadding="10dp"
+			    android:text="退出"
+			    android:clickable="true"/>
+        </RelativeLayout>     
+    </LinearLayout>
+	
 </RelativeLayout>
