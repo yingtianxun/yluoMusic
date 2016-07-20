@@ -1,0 +1,258 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slide_menu_background" >
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iv_header_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/slide_menu_header_icon" />
+
+        <TextView
+            android:id="@+id/tv_header_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="35dp"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:text="@string/slide_menu_login_register_text"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
+
+        <ImageButton
+            android:id="@+id/btn_header_change_skin"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/slide_menu_change_skin" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="270dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="70dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <!-- 消息中心 -->
+            <RelativeLayout
+                android:id="@+id/rl_message_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_message_icon"
+                    android:text="@string/slide_menu_message_text" />
+                <TextView
+                    style="@style/slide_menu_item_right_tv"
+                    android:drawableLeft="@drawable/slide_menu_message_icon" />
+            </RelativeLayout>
+
+            <!-- 会员中心 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_member_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_message_icon"
+                    android:text="@string/slide_menu_member_text" />
+
+                <TextView
+                    style="@style/slide_menu_item_right_tv"
+                    android:drawableLeft="@drawable/slide_menu_message_icon" />
+            </RelativeLayout>
+
+            <!-- 定时关闭 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_time_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"                 
+                    android:drawableLeft="@drawable/slide_menu_timeclose_icon"
+                    android:text="@string/slide_menu_timeclose_text"/>
+
+                <TextView
+                    style="@style/slide_menu_item_right_tv"
+                    android:drawableLeft="@drawable/slide_menu_timeclose_icon"/>
+            </RelativeLayout>
+
+            <!-- 蝰蛇音效 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_sound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+                    android:text="@string/slide_menu_sound_text"/>
+
+                <TextView
+                    style="@style/slide_menu_item_right_tv"
+                    android:drawableLeft="@drawable/slide_menu_soundtype_icon"/>
+            </RelativeLayout>
+
+            <!-- 听歌识曲 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_listen_song"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_soundtype_icon"
+                    android:text="@string/slide_menu_listen_song_text"/>
+
+                <TextView
+                    style="@style/slide_menu_item_right_tv"
+                    android:drawableLeft="@drawable/slide_menu_soundtype_icon"/>
+            </RelativeLayout>
+
+            <!-- 启动问候音 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_hello"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_hello_icon"
+                    android:text="@string/slide_menu_hello_text"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:text="经典版"
+                    android:textColor="#dddddd"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+
+            <!-- 分割线 -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#55ffffff" />
+
+            <!-- 仅WIFI联网 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_wifi_connect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_wifi_icon"
+                    android:text="@string/slide_menu_wifi_text" />
+
+                <CheckBox
+                    style="@style/slide_menu_item_right_checkbox"
+                    android:background="@drawable/slide_menu_checkbox_close"
+                   />
+            </RelativeLayout>
+
+            <!-- 桌面歌词  android:drawableLeft="@drawable/slide_menu_checkbox_close" -->
+
+            <RelativeLayout
+                android:id="@+id/rl_desk_lyric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                    style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_hello_icon"
+                    android:text="@string/slide_menu_desk_lyric_text"/>
+
+                <CheckBox
+                    style="@style/slide_menu_item_right_checkbox"
+                    android:background="@drawable/slide_menu_checkbox_close"/>
+            </RelativeLayout>
+
+            <!-- 锁屏歌词 -->
+
+            <RelativeLayout
+                android:id="@+id/rl_lock_lyric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true" >
+
+                <TextView
+                     style="@style/slide_menu_item_left_tv"
+                    android:drawableLeft="@drawable/slide_menu_hello_icon"
+                    android:text="@string/slide_menu_lock_lyric_text"/>
+
+                <CheckBox
+                    style="@style/slide_menu_item_right_checkbox"
+                    android:background="@drawable/slide_menu_checkbox_close"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!-- android:background="@android:color/white" -->
+
+    <View
+        android:layout_width="270dp"
+        android:layout_height="1px"
+        android:layout_marginTop="350dp"
+        android:background="#55ffffff" />
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true" >
+
+        <!-- 设置&退出 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true" >
+
+            <TextView
+                android:text="@string/slide_menu_setting_text"
+                android:id="@+id/tv_setting"
+                android:layout_alignParentLeft="true"
+                android:drawableLeft="@drawable/slide_menu_setting_icon"
+                style="@style/slide_menu_setting_back" />
+
+            <TextView
+                android:text="@string/slide_menu_back_text"
+                android:id="@+id/tv_back"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/slide_menu_setting_icon" 
+                style="@style/slide_menu_setting_back"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

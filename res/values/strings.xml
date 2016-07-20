@@ -4,5 +4,17 @@
     <string name="app_name">yluoMusic</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    
+    <string name="slide_menu_login_register_text">登录/注册>>></string>
+	<string name="slide_menu_message_text">消息中心</string>
+	<string name="slide_menu_member_text">会员中心</string>
+	<string name="slide_menu_timeclose_text">定时关闭</string>
+	<string name="slide_menu_sound_text">蝰蛇音效</string>
+	<string name="slide_menu_listen_song_text">听歌识曲</string>
+	<string name="slide_menu_hello_text">启动问候音</string>
+	<string name="slide_menu_wifi_text">仅WIFI联网</string>
+	<string name="slide_menu_desk_lyric_text">桌面歌词</string>
+	<string name="slide_menu_lock_lyric_text">锁屏歌词</string>
+	<string name="slide_menu_setting_text">设置</string>
+	<string name="slide_menu_back_text">退出</string>
 </resources>
