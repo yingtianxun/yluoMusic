@@ -48,12 +48,12 @@ public class SlideMenuFragment extends BaseFragment{
 		mCbLockLyric = (CheckBox)getRootView().findViewById(R.id.cb_lock_lyric);
 	}
 	private void handleCbWifiOpenOrClose(boolean isOpen) {
-		
-		int bkDrawableID = isOpen ? 
-				R.drawable.slide_menu_checkbox_open : 
-					R.drawable.slide_menu_checkbox_close;
-		
-		mCbWifiConnect.setBackgroundResource(bkDrawableID);
+//		
+//		int bkDrawableID = isOpen ? 
+//				R.drawable.slide_menu_checkbox_open : 
+//					R.drawable.slide_menu_checkbox_close;
+//		
+//		mCbWifiConnect.setBackgroundResource(bkDrawableID);
 		
 //		ImageView imageView=new ImageView(null);
 //		imageView.setImageResource(R.drawable.slide_menu_checkbox_open);
