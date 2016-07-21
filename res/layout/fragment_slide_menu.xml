@@ -164,7 +164,6 @@
             <!-- 仅WIFI联网 -->
 
             <RelativeLayout
-                android:id="@+id/rl_wifi_connect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true" >
@@ -175,15 +174,15 @@
                     android:text="@string/slide_menu_wifi_text" />
 
                 <CheckBox
+                    android:id="@+id/cb_wifi_connect"
                     style="@style/slide_menu_item_right_checkbox"
-                    android:background="@drawable/slide_menu_checkbox_close"
+                     android:background="@drawable/checkbox_slide_menu_bk"
                    />
             </RelativeLayout>
 
             <!-- 桌面歌词  android:drawableLeft="@drawable/slide_menu_checkbox_close" -->
 
             <RelativeLayout
-                android:id="@+id/rl_desk_lyric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true" >
@@ -194,24 +193,25 @@
                     android:text="@string/slide_menu_desk_lyric_text"/>
 
                 <CheckBox
+                    android:id="@+id/cb_desk_lyric"
                     style="@style/slide_menu_item_right_checkbox"
-                    android:background="@drawable/slide_menu_checkbox_close"/>
+                    android:background="@drawable/checkbox_slide_menu_bk"/>
             </RelativeLayout>
 
             <!-- 锁屏歌词 -->
 
             <RelativeLayout
-                android:id="@+id/rl_lock_lyric"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true" >
 
                 <TextView
-                     style="@style/slide_menu_item_left_tv"
+                    style="@style/slide_menu_item_left_tv"
                     android:drawableLeft="@drawable/slide_menu_hello_icon"
                     android:text="@string/slide_menu_lock_lyric_text"/>
 
                 <CheckBox
+                    android:id="@+id/cb_lock_lyric"
                     style="@style/slide_menu_item_right_checkbox"
                     android:background="@drawable/slide_menu_checkbox_close"/>
             </RelativeLayout>
