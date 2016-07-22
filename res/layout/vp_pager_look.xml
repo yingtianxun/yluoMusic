@@ -3,38 +3,127 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <!--  
-    <TextView 
-        android:id="@+id/tv_look"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="LOOK"
-        android:textColor="#ff00ff"
-        />
-    -->
-    <RelativeLayout 
-        android:layout_weight="match_parent"
-        android:layout_height="wrap_conent"
-        >
-        <ImageView 
+        android:layout_height="wrap_content" >
+
+        <ImageView
             android:id="@+id/iv_viewpager_look"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/main_content_look_viewpager_imageview"
-            />
+            android:src="@drawable/main_content_look_viewpager_imageview" />
     </RelativeLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <TextView 
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tv_listen_mv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_content_look_tv_mv"
+            android:gravity="center"
+            android:text="MV" />
+
+        <TextView
+            android:id="@+id/tv_listen_star_live"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_content_look_tv_star_live"
+            android:gravity="center"
+            android:text="繁星直播" />
+
+        <TextView
+            android:id="@+id/tv_listen_phone_live"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:drawableTop="@drawable/main_content_look_tv_phone_live"
+            android:gravity="center"
+            android:text="手机直播" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:background="#55000000" />
+
+    <RelativeLayout
+        android:id="@+id/rl_liveshow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/main_content_look_tv_mv"
+            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
             android:drawablePadding="10dp"
-            android:text="MV"
-            android:gravity="center"
-            />
-    </LinearLayout>
-    
- </LinearLayout>
+            android:paddingTop="15dp"
+            android:text="酷狗LIVE"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30dp"
+        android:background="#55000000" />
+
+    <RelativeLayout
+        android:id="@+id/rl_star_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
+            android:drawablePadding="10dp"
+            android:paddingTop="15dp"
+            android:text="明显在线"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30dp"
+        android:background="#55000000" />
+
+    <RelativeLayout
+        android:id="@+id/rl_show_offline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
+            android:drawablePadding="10dp"
+            android:paddingTop="15dp"
+            android:text="线下演出"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="宋茜女神见面会" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="30dp"
+        android:background="#55000000"/>
+
+</LinearLayout>

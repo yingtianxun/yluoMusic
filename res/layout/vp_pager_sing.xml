@@ -3,13 +3,229 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <TextView 
-        android:id="@+id/tv_sing"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="SING"
-        android:textColor="#00ffff"
-        />
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/tv_viewpager_sing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_content_sing_viewpager_imageview" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp" >
+
+        <ImageView
+            android:id="@+id/iv_ising"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/main_content_sing_ising_icon" />
+        
+        <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_ising"
+            android:layout_above="@id/iv_ising"
+            android:id="@+id/ll_sing_nearby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/main_content_sing_map_icon" />
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="附近" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1000人" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View 
+            android:layout_above="@id/iv_ising"
+            android:layout_marginBottom="10px"
+            android:layout_centerHorizontal="true"
+            android:layout_width="1px"
+            android:layout_height="30dp"
+            android:background="#55000000"/>
+        <View 
+            android:layout_below="@id/iv_ising"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="1px"
+            android:layout_height="30dp"
+            android:background="#55000000"/>
+        <View 
+            android:layout_toLeftOf="@id/iv_ising"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="1px"
+            android:background="#55000000"/>
+        <View 
+            android:layout_toRightOf="@id/iv_ising"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="1px"
+            android:background="#55000000"/>
+         <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_ising"
+            android:layout_above="@id/iv_ising"
+            android:id="@+id/ll_sing_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/main_content_sing_range_icon" />
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="排行" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="深圳" />
+            </LinearLayout>
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_ising"
+            android:layout_below="@id/iv_ising"
+            android:id="@+id/ll_sing_fellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/main_content_sing_follow_icon" />
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="附近" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1000人" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_ising"
+            android:layout_below="@id/iv_ising"
+            android:id="@+id/ll_sing_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/main_content_sing_my_icon" />
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="附近" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="1000人" />
+            </LinearLayout>
+        </LinearLayout>
+        
+    </RelativeLayout>
+    <View 
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#55000000"/>
+    <RelativeLayout 
+        android:id="@+id/rl_sing_ward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView 
+            android:id="@+id/tv_sing_ward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/main_content_sing_iv_ward"
+            android:padding="10dp"
+            android:text="大赛"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_sing_ward"
+            android:layout_centerVertical="true"
+            android:src="@drawable/main_content_sing_tv_new_message"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="有一种音乐叫治愈系"/>
+    </RelativeLayout>
+    <View 
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#55000000"/>
 
 </LinearLayout>
