@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+=======
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    
+    <fragment 
+        android:id="@+id/fragment_maincontent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.yluo.yluomusic.ui.fragment.MainContentFragment">
+    </fragment>
+    
+     
+    <!--  
+>>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
     <FrameLayout android:id="@+id/fl_test"
         android:layout_width="match_parent"
         
         android:layout_height="match_parent"
         />
+<<<<<<< HEAD
 
 </LinearLayout>
+=======
+-->
+</merge>
+>>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
