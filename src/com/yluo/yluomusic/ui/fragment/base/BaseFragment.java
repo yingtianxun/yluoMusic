@@ -16,9 +16,6 @@ public  abstract class BaseFragment extends Fragment{
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		
-		
-		
 		rootView = createView(inflater);
 		
 		initUI();
@@ -32,11 +29,15 @@ public  abstract class BaseFragment extends Fragment{
 		return inflater.inflate(getLayoutId(), null, false);
 			
 	}
+	
 	protected abstract void initUI() ;
 	protected abstract void initEvent();
 	protected abstract int getLayoutId();
 	
 	protected View getRootView() {
 		return rootView;
+	}
+	protected <T> T findViewById(int id) {
+		return (T) rootView.findViewById(id);
 	}
 }
