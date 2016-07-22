@@ -1,1 +1,1 @@
-yluoMusice一款开源的音乐播放器
+yluoMusic一款开源的音乐播放器

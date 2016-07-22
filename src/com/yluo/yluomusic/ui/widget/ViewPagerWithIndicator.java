@@ -149,7 +149,7 @@ public class ViewPagerWithIndicator extends LinearLayout {
 		private int tagWidth = defaltTagWidth;
 		private Paint paint;
 		private float drawLinePosY = 0;
-		private int lineHeight = 4;
+		private int lineHeight ;
 		private int lineOffSet = 0;
 
 		private long DownTime = 0;;
@@ -182,7 +182,7 @@ public class ViewPagerWithIndicator extends LinearLayout {
 		}
 
 		private void init() {
-			
+			lineOffSet = dp2px(2);
 			defaltTagWidth = dp2px(100);
 			tagWidth = defaltTagWidth;
 			taglist = new ArrayList<TextView>();
