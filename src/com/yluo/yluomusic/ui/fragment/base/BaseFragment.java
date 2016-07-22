@@ -29,7 +29,7 @@ public  abstract class BaseFragment extends Fragment{
 		return inflater.inflate(getLayoutId(), null, false);
 			
 	}
-	
+
 	protected abstract void initUI() ;
 	protected abstract void initEvent();
 	protected abstract int getLayoutId();
@@ -40,4 +40,5 @@ public  abstract class BaseFragment extends Fragment{
 	protected <T> T findViewById(int id) {
 		return (T) rootView.findViewById(id);
 	}
+
 }

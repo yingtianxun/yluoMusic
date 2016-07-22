@@ -1,16 +1,15 @@
 package com.yluo.yluomusic.ui.widget;
 
-import com.yluo.utils.DpTranToPx;
+
+
+import com.yluo.yluomusic.utils.DpTranToPx;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class PictureRecycle extends ViewPager {
