@@ -25,7 +25,6 @@
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/iv_header_icon"
             android:clickable="true"
-            android:contextClickable="true"
             android:text="@string/slide_menu_login_register_text"
             android:textColor="#dddddd"
             android:textSize="15dp" 
