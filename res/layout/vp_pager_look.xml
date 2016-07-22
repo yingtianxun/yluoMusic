@@ -51,10 +51,8 @@
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="20dp"
-        android:background="#55000000" />
+        style="@style/main_content_live_line"/>
+    
 
     <RelativeLayout
         android:id="@+id/rl_liveshow"
@@ -62,41 +60,29 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/main_content_look_live"
             android:drawableLeft="@drawable/main_content_look_tv_liveshow"
-            android:drawablePadding="10dp"
-            android:paddingTop="15dp"
             android:text="酷狗LIVE"
-            android:textSize="20dp" />
+            />
     </RelativeLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="30dp"
-        android:background="#55000000" />
-
+        style="@style/main_content_live_line"/>
+    
     <RelativeLayout
         android:id="@+id/rl_star_online"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
-            android:drawablePadding="10dp"
-            android:paddingTop="15dp"
+            style="@style/main_content_look_live"
+            android:drawableLeft="@drawable/main_content_look_tv_star_online"
             android:text="明显在线"
-            android:textSize="20dp" />
+             />
     </RelativeLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="30dp"
-        android:background="#55000000" />
+        style="@style/main_content_live_line"/>
 
     <RelativeLayout
         android:id="@+id/rl_show_offline"
@@ -104,13 +90,10 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
-            android:drawablePadding="10dp"
-            android:paddingTop="15dp"
+            style="@style/main_content_look_live"
+            android:drawableLeft="@drawable/main_content_look_tv_show_offline"
             android:text="线下演出"
-            android:textSize="20dp" />
+             />
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,9 +104,6 @@
     </RelativeLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="30dp"
-        android:background="#55000000"/>
+        style="@style/main_content_live_line"/>
 
 </LinearLayout>

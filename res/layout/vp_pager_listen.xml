@@ -135,13 +135,10 @@
         android:layout_marginTop="10dp" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/main_content_listen_live"
             android:drawableLeft="@drawable/vp_listen_tool"
-            android:drawablePadding="10dp"
-            android:gravity="center"
             android:text="工具"
-            android:textColor="#ffffff" />
+/>
     </RelativeLayout>
     <!-- 游戏 -->
 
@@ -150,13 +147,10 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/main_content_listen_live"
             android:drawableLeft="@drawable/vp_listen_game"
-            android:drawablePadding="10dp"
-            android:gravity="center"
             android:text="游戏"
-            android:textColor="#ffffff" />
+             />
     </RelativeLayout>
     <!-- 推广 -->
 
@@ -165,13 +159,9 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/main_content_listen_live"
             android:drawableLeft="@drawable/vp_listen_promote"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:text="推广"
-            android:textColor="#ffffff" />
+            android:text="推广"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -179,62 +169,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="免费领9元话费+包月VIP，送完即止"
-            android:textColor="#ffffff" />
+            android:textColor="#55ffffff" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/vp_listen_song_icon" />
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="歌名"
-                android:textColor="#ffffff"
-                android:textSize="20dp" />
-
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="歌手"
-                android:textColor="#ffffff"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-        <ImageButton
-            android:layout_gravity="center"
-            android:layout_height="40dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/vp_listen_play_icon" />
-
-        <ImageButton
-            android:layout_gravity="center"
-            android:layout_height="40dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/vp_listen_nextsong_icon" />
-
-        <ImageButton
-            android:layout_gravity="center"
-            android:layout_height="40dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/vp_listen_songplay_icon" />
-    </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <SeekBar
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="10px"
+        android:thumb="@drawable/seekbar_thumb"
+        android:layout_marginTop="10dp"
+        android:background="#55000000" />
+
+ <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="歌名" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="歌手" />
+        </LinearLayout>
+
+   			 
+            <ImageButton
+                android:id="@+id/ib_songlist"
+                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/vp_listen_songplay_icon" />
+            <ImageButton
+                android:id="@+id/ib_nextsong"
+                android:layout_toLeftOf="@id/ib_songlist"
+                android:layout_marginRight="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/vp_listen_nextsong_icon" />
+            <ImageButton
+                android:id="@+id/ib_play"
+                android:layout_toLeftOf="@id/ib_nextsong"
+                android:layout_marginRight="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/vp_listen_play_icon" />
+    </RelativeLayout>
+
+</LinearLayout>
