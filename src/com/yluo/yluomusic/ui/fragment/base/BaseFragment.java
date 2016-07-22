@@ -16,12 +16,6 @@ public  abstract class BaseFragment extends Fragment{
 	@Nullable
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-<<<<<<< HEAD
-		
-		
-		
-=======
->>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
 		rootView = createView(inflater);
 		
 		initUI();
@@ -35,10 +29,7 @@ public  abstract class BaseFragment extends Fragment{
 		return inflater.inflate(getLayoutId(), null, false);
 			
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
+
 	protected abstract void initUI() ;
 	protected abstract void initEvent();
 	protected abstract int getLayoutId();
@@ -46,10 +37,8 @@ public  abstract class BaseFragment extends Fragment{
 	protected View getRootView() {
 		return rootView;
 	}
-<<<<<<< HEAD
-=======
 	protected <T> T findViewById(int id) {
 		return (T) rootView.findViewById(id);
 	}
->>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
+
 }

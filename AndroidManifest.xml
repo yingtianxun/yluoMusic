@@ -5,13 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-<<<<<<< HEAD
-        android:minSdkVersion="21"
-        android:targetSdkVersion="21" />
-=======
         android:minSdkVersion="17"
-        android:targetSdkVersion="17" />
->>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
+        android:targetSdkVersion="21" />
 
     <application
         android:allowBackup="true"
@@ -19,11 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-<<<<<<< HEAD
-            android:name=".MainActivity"
-=======
             android:name="com.yluo.yluomusic.ui.activity.MainActivity"
->>>>>>> 67aa85a3b89fda1b899aa09ae612054c21dc828e
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

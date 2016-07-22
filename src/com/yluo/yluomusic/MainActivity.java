@@ -1,13 +1,9 @@
 package com.yluo.yluomusic;
 
-import com.yluo.yluomusic.ui.fragment.SlideMenuFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 
 public class MainActivity extends FragmentActivity {
@@ -21,13 +17,13 @@ public class MainActivity extends FragmentActivity {
         
         setContentView(R.layout.activity_layout);
         
-	      android.support.v4.app.FragmentManager fManager =  this.getSupportFragmentManager();
-	      FragmentTransaction transaction = fManager.beginTransaction();
-	      SlideMenuFragment slideMenuFragment = new SlideMenuFragment();
-//	      transaction.add(slideMenuFragment, "111");
-//	      transaction.replace(R.id.fl_test, slideMenuFragment);
-	      transaction.add(R.id.fl_test, slideMenuFragment);
-	      transaction.commit();
+//	      android.support.v4.app.FragmentManager fManager =  this.getSupportFragmentManager();
+//	      FragmentTransaction transaction = fManager.beginTransaction();
+//	      SlideMenuFragment slideMenuFragment = new SlideMenuFragment();
+////	      transaction.add(slideMenuFragment, "111");
+////	      transaction.replace(R.id.fl_test, slideMenuFragment);
+//	      transaction.add(R.id.fl_test, slideMenuFragment);
+//	      transaction.commit();
         
         
         //setContentView(R.layout.vp_pager_listen);
