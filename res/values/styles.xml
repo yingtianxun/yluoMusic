@@ -1,0 +1,66 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="slide_menu_item_rl">
+         <item name="android:layout_width">match_parent</item>
+         <item name="android:layout_height">wrap_content</item>
+         <item name="android:clickable">true</item>
+         <item name="android:paddingLeft">10dp</item>
+         <item name="android:background">@drawable/item_slide_menu_bk</item>
+     </style>
+     
+    <style name="slide_menu_item_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:fontFamily">楷体</item>
+    </style>
+     <style name="slide_menu_item_right_tv">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+    
+     
+     
+     <style name="slide_menu_item_right_checkbox">
+         <item name="android:layout_width">30dp</item>
+         <item name="android:layout_height">25dp</item>
+         <item name="android:layout_alignParentRight">true</item>
+         <item name="android:padding">0dp</item>
+         <item name="android:button">@android:color/transparent</item>
+     </style>
+     
+     <style name="slide_menu_setting_back">
+         <item name="android:drawablePadding">10dp</item>
+         <item name="android:gravity">center_vertical</item>
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_height">30dp</item>
+         <item name="android:clickable">true</item>
+         <item name="android:textColor">#dddddd</item>
+     </style>
+     
+</resources>
