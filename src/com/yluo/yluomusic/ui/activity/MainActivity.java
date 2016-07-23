@@ -40,8 +40,8 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         
         //setContentView(R.layout.activity_layout);
-        setContentView(R.layout.main_content_bottom_play);
-        
+        //setContentView(R.layout.main_content_bottom_play);
+        setContentView(R.layout.fragment_slide_menu_setting);
 //	      android.support.v4.app.FragmentManager fManager =  this.getSupportFragmentManager();
 //	      FragmentTransaction transaction = fManager.beginTransaction();
 //	      MainContentFragment contentFragment = new MainContentFragment();
