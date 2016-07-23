@@ -62,6 +62,11 @@ public class SlideMenuFragment extends BaseFragment{
 	protected int getLayoutId() {
 		return R.layout.fragment_slide_menu;
 	}
+	@Override
+	protected void initData() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

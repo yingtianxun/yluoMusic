@@ -19,7 +19,7 @@ public  abstract class BaseFragment extends Fragment{
 		rootView = createView(inflater);
 		
 		initUI();
-		
+		initData();
 		initEvent();
 	
 		return rootView;
@@ -29,10 +29,11 @@ public  abstract class BaseFragment extends Fragment{
 		return inflater.inflate(getLayoutId(), null, false);
 			
 	}
-
-	protected abstract void initUI() ;
-	protected abstract void initEvent();
 	protected abstract int getLayoutId();
+	protected abstract void initUI() ;
+	protected abstract void initData() ;
+	protected abstract void initEvent();
+	
 	
 	protected View getRootView() {
 		return rootView;

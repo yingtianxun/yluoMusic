@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sl_test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.yluo.yluomusic.ui.widget.YluoViewPager
         android:id="@+id/vp_maincontent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
+</com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout>

@@ -39,9 +39,22 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //setContentView(R.layout.activity_layout);
+        setContentView(R.layout.activity_layout);
+        
+//        setContentView(R.layout.content);
+        // configure the SlidingMenu
+//        SlidingMenu menu = new SlidingMenu(this);
+//        menu.setMode(SlidingMenu.LEFT);
+//        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+////        menu.setShadowWidthRes(R.dimen.shadow_width);
+////        menu.setShadowDrawable(R.drawable.shadow);
+////        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//        menu.setFadeDegree(0.35f);
+//        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+//        menu.setMenu(R.layout.fragment_slide_menu);
+        
         //setContentView(R.layout.main_content_bottom_play);
-        setContentView(R.layout.fragment_slide_menu_setting);
+//        setContentView(R.layout.fragment_slide_menu_setting);
 //	      android.support.v4.app.FragmentManager fManager =  this.getSupportFragmentManager();
 //	      FragmentTransaction transaction = fManager.beginTransaction();
 //	      MainContentFragment contentFragment = new MainContentFragment();
