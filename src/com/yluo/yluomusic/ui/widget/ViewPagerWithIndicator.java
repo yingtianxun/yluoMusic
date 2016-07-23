@@ -100,7 +100,6 @@ public class ViewPagerWithIndicator extends LinearLayout {
 				if(indicator != null) {
 					indicator.changePageIndex(pageIndex);
 				}
-				
 			}
 
 			@Override
