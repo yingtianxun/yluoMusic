@@ -87,7 +87,7 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	@Override
 	protected void onFinishInflate() {
 		
-		if(!isFinishInflate) {
+		if(!isFinishInflate ) {
 			if (getChildCount() != 1) {
 				throw new IllegalArgumentException("SlideMenuLayout的内容只能有一个");
 			}
@@ -99,6 +99,7 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 			isFinishInflate = true;
 		}
+		
 		
 	}
 
@@ -344,11 +345,11 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	}
 
 	@Override
-	protected void openMenu(int curVelectoryDirection) {
+	protected void openMenu(float curVelectoryDirection) {
 		
-		if (isMeetOpenLeftMenu() || curVelectoryDirection == 1) {
+		if (isMeetOpenLeftMenu() || curVelectoryDirection > 0) {
 			openLeftMenu();
-		} else if (isMeetOpenRightMenu() || curVelectoryDirection == -1) {
+		} else if (isMeetOpenRightMenu() || curVelectoryDirection < 0) {
 			openRightMenu();
 		} 
 	}
