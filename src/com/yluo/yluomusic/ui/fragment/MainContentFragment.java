@@ -12,28 +12,45 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import com.yluo.yluomusic.R;
 import com.yluo.yluomusic.adapter.viewpageradapter.MainContentFragmentAdapter;
 import com.yluo.yluomusic.ui.fragment.base.BaseFragment;
+import com.yluo.yluomusic.ui.widget.HideSlideMenuLayout;
 import com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout;
+import com.yluo.yluomusic.ui.widget.ShowSongWordView;
 
 public class MainContentFragment extends BaseFragment {
 	private List<Fragment> fragmentslist;
 	private ViewPager maincontentPager;
 
-	private SacleSlideMenuLayout sl_test;
+	private SacleSlideMenuLayout slMainContent;
+	
+	private ShowSongWordView sv_songword;
+	
+	private HideSlideMenuLayout hlSubMenu;
+	
 	@Override
 	protected int getLayoutId() {
-
 		return R.layout.fragment_main_content;
 	}
 
 	@Override
 	protected void initUI() {
+		maincontentPager =  findViewById(R.id.vp_maincontent);
 		
+		slMainContent = findViewById(R.id.sl_main_content);
 		
-		maincontentPager = (ViewPager) findViewById(R.id.vp_maincontent);
+		// 设置做菜单
+		slMainContent.setLeftMenuView(R.layout.fragment_slide_menu);
 		
-		sl_test = (SacleSlideMenuLayout)findViewById(R.id.sl_test);
+		// 设置歌词
+		sv_songword =  findViewById(R.id.sv_songword);
+        
+		// 设置歌词文件
+        sv_songword.setSongWords(R.raw.wuzibei);
+        
+        // 设置子菜单
+        hlSubMenu = findViewById(R.id.hl_sub_menu);
+        
+        hlSubMenu.setRightMenuView(R.layout.test);
 		
-		 sl_test.setLeftMenuView(R.layout.fragment_slide_menu);
 	}
 
 	@Override

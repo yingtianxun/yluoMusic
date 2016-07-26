@@ -278,7 +278,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 			int heightMeasureSpec);
 
 	private void handleTouchDownEvent(MotionEvent event) {
-		eventUtil.ressetMoveStatus();
+		eventUtil.resetMoveStatus();
 		eventUtil.resetMoveDirection();
 		canOpenLeft = true;
 		canOpenRight = true;

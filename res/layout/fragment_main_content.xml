@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout
+<com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/sl_test"
+    android:id="@+id/sl_main_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
 
-    <com.yluo.yluomusic.ui.widget.YluoViewPager
-        android:id="@+id/vp_maincontent"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <com.yluo.yluomusic.ui.widget.HideSlideMenuLayout
+            android:id="@+id/hl_sub_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.yluo.yluomusic.ui.widget.YluoViewPager
+                android:id="@+id/vp_maincontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.yluo.yluomusic.ui.widget.HideSlideMenuLayout>
+        
+        
+
+        <com.yluo.yluomusic.ui.widget.MusicProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/white" >
+
+            <com.yluo.yluomusic.ui.widget.ShowSongWordView
+                android:id="@+id/sv_songword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" >
+            </com.yluo.yluomusic.ui.widget.ShowSongWordView>
+
+            <com.yluo.yluomusic.ui.widget.CircleImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/fuckyou" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="adasd" />
+        </com.yluo.yluomusic.ui.widget.MusicProgressBar>
+    </RelativeLayout>
 
 </com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout>

@@ -15,10 +15,15 @@ public class MotionEventUtil {
 	private int mMaxFlingVelocity;
 	private boolean mIsMove = false;
 	
+	private float mMinScrollSpan = 0;
+	private float mMaxScrollSpan = 0;
+	
 	private static final int DIRECTION_X = 1; // X方向滚动
 	private static final int DIRECTION_Y = -1; // Y方向滚动
 	private static final int NODIRECTION = 0; // 还没有判断
 	private int curMoveDirection = NODIRECTION; // 0 表示没移动,-1表示上下移动,1表示左右移动
+	private float mMinTranslateSpan;
+	private float mMaxTranslateSpan;
 	
 	public MotionEventUtil(Context context) {
 		mContext = context;
@@ -53,6 +58,11 @@ public class MotionEventUtil {
 		return getDisX(event) < 0;
 	}
 	
+	public boolean isMoveLeft(MotionEvent event) {
+
+		return getDisX(event) > 0;
+	}
+	
 	public float calcMoveDistance(MotionEvent event) {
 		float distance = (float) Math.sqrt(Math.pow(getDisX(event), 2)
 				+ Math.pow(getDisY(event), 2));
@@ -75,7 +85,7 @@ public class MotionEventUtil {
 		 mIsMove = true;
 	}
 	
-	public void ressetMoveStatus() {
+	public void resetMoveStatus() {
 		 mIsMove = false;
 	}
 	
@@ -140,6 +150,27 @@ public class MotionEventUtil {
 		}
 		return disX;
 	}
+	
+	public void setMinTranslateSpan(float minTranslateSpan) {
+		mMinTranslateSpan = minTranslateSpan;
+	}
+	public void setMaxTranslateSpan(float maxTranslateSpan) {
+		mMaxTranslateSpan = maxTranslateSpan;
+	}
+	
+	public int adjustTranslatePosition(float translatePosition) {
+
+		if (translatePosition > mMinTranslateSpan) {
+			translatePosition = mMinTranslateSpan;
+
+		} else if (translatePosition < mMaxTranslateSpan) {
+			translatePosition = mMaxTranslateSpan;
+		}
+		return (int) translatePosition;
+	}
+	
+//	private float mMinScrollSpan = 0;
+//	private float mMaxScrollSpan = 0;
 }
 
 

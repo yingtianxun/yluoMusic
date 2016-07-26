@@ -211,8 +211,6 @@ public class MusicProgressBar extends LinearLayout implements NestedScrollingPar
 			invalidate();
 		}
 		
-		
-		
 		mParentHelper.onStopNestedScroll(target);
 	}
 }
