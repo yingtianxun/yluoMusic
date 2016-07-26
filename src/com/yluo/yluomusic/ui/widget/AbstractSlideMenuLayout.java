@@ -8,9 +8,11 @@ import com.yluo.yluomusic.utils.MotionEventUtil;
 import android.content.Context;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Scroller;
@@ -247,7 +249,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 			// 右菜单打开点击右边部分不显示
 		} else if (isMenuRightOpen()
 				&& event.getX() <= (mContentWidth - getMenuWidth())) {
-			curMinScrollSpan = (int) getMenuWidth();
+			curMinScrollSpan = 0;
 			return true;
 		}
 		return false;
@@ -311,11 +313,13 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 		if (isMenuClose()) {
 			if (canOpenLeft && canOpenRight) {
 				if ((getScrollX() + disX) < getCloseMenuPosition()) {
+					
 					canOpenRight = false;
 					curMaxScrollSpan = (int) getMenuWidth();
+					
 				} else if ((getScrollX() + disX) > getCloseMenuPosition()) {
 					canOpenLeft = false;
-					curMinScrollSpan = (int) getMenuWidth();
+					curMinScrollSpan = 0;
 				}
 			}
 		}
@@ -340,7 +344,9 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 		float curVelocity = eventUtil.getCurXVelocity(velocityTracker);
 
 		if (eventUtil.isMeetMinFlingVelocity(curVelocity)) {
-
+			
+			Log.d(TAG, "-------滑动速度达到最大值");
+			
 			closeOrOpenMenu(closeOrOpenMenuByVelocity(curVelocity > 0),
 					curVelocity);
 
@@ -393,15 +399,22 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 		mMaxScrollSpan += scrollSpan;
 
 		curMaxScrollSpan = mMaxScrollSpan;
+		
+		
 	}
 
 	protected abstract void judgeOpenOrClose();
 
 	protected int getLeftOpenMenuPosition() {
+		
+		Log.d(TAG, "---curMinScrollSpan:" + curMinScrollSpan);
 		return curMinScrollSpan;
 	}
 
 	protected int getRightOpenMenuPosition() {
+		
+		Log.d(TAG, "---curMaxScrollSpan:" + curMaxScrollSpan);
+		
 		return curMaxScrollSpan;
 	}
 
@@ -431,6 +444,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 	public void openRightMenu(boolean isScroll) {
 		if (isScroll) {
+			// getRightOpenMenuPosition 获取这个值有错
 			startScrollX(getScrollX(), getRightOpenMenuPosition());
 		} else {
 			judgeOpenOrClose();
@@ -438,6 +452,9 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 	}
 
 	private void startScrollX(int startX, int endY) {
+		
+		Log.d(TAG, "startX:" + startX + ",endY:" + endY);
+		
 		isWaitingCallStatusListener = true; // 标记监听的
 		mScroller.startScroll(startX, 0, endY - startX, 0, mScrollDuration);
 

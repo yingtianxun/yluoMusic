@@ -175,7 +175,7 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			
+			getParent().requestDisallowInterceptTouchEvent(true);
 			startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL);
 			break;
 

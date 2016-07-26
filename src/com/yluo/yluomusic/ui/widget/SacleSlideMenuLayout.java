@@ -34,10 +34,11 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 	private boolean isFinishInflate = false; // 是否已经完成枚举
 
+	
+
 	private int mSlideLayoutWidth;
 
-	public SacleSlideMenuLayout(Context context, AttributeSet attrs,
-			int defStyleAttr) {
+	public SacleSlideMenuLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init();
 	}
@@ -56,7 +57,7 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	protected void init() {
 		super.init();
 		mMenuWidthFactor = 0.8f;
-
+		
 	}
 
 	public void setLeftMenuView(View leftMenuView) {
@@ -81,10 +82,11 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 		setRightMenuView(inflate(id));
 	}
 
+	
+
 	@Override
 	protected void onFinishInflate() {
-
-		if (!isFinishInflate) {
+		if(!isFinishInflate ) {
 			if (getChildCount() != 1) {
 				throw new IllegalArgumentException("SlideMenuLayout的内容只能有一个");
 			}
@@ -96,7 +98,6 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 			isFinishInflate = true;
 		}
-
 	}
 
 	private void resetWidthAndMenuScrollSpan() {
@@ -301,7 +302,7 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 	@Override
 	protected void onTouchUp(MotionEvent event, float curVelocitX) {
-
+		
 	}
 
 	@Override
@@ -309,20 +310,20 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 		if (getScrollX() == getCloseMenuPosition()) {
 			if (!isMenuClose()) {
 				mMenuOpenStatus = NOT_OPEN;
-
+				
 				Log.d(TAG, "关闭菜单");
 			}
 		} else if (getScrollX() == getLeftOpenMenuPosition()) { //
 			if (!isMenuLeftOpen()) {
 				mMenuOpenStatus = OPEN_LEFT;
 				Log.d(TAG, "打开左菜单");
-
+				
 			}
 			// 打开的
 		} else if (getScrollX() == getRightOpenMenuPosition()) {
 			if (!isMenuRightOpen()) {
 				mMenuOpenStatus = OPEN_RIGHT;
-
+				
 				Log.d(TAG, "打开右菜单");
 			}
 		}
@@ -331,12 +332,10 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	public boolean isMenuClose() {
 		return mMenuOpenStatus == NOT_OPEN;
 	}
-
 	@Override
 	public boolean isMenuLeftOpen() {
 		return mMenuOpenStatus == OPEN_LEFT;
 	}
-
 	@Override
 	public boolean isMenuRightOpen() {
 		return mMenuOpenStatus == OPEN_RIGHT;
@@ -344,12 +343,16 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 	@Override
 	protected void openMenu(float curVelectoryDirection) {
-
+		
 		if (isMeetOpenLeftMenu() || curVelectoryDirection > 0) {
+			Log.d(TAG, "-------------:打开左菜单" );
 			openLeftMenu();
 		} else if (isMeetOpenRightMenu() || curVelectoryDirection < 0) {
+			
+			Log.d(TAG, "-------------:打开右菜单" );
+			
 			openRightMenu();
-		}
+		} 
 	}
 
 	@Override

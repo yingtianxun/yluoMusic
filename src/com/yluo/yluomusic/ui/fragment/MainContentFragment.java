@@ -40,6 +40,8 @@ public class MainContentFragment extends BaseFragment {
 		// 设置做菜单
 		slMainContent.setLeftMenuView(R.layout.fragment_slide_menu);
 		
+		slMainContent.setRightMenuView(R.layout.fragment_slide_menu);
+		
 		// 设置歌词
 		sv_songword =  findViewById(R.id.sv_songword);
         

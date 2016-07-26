@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
         
         //setContentView(R.layout.main_content_bottom_play);
 
-        setContentView(R.layout.recycle_view_love);
+//        setContentView(R.layout.recycle_view_love);
 
 //	      android.support.v4.app.FragmentManager fManager =  this.getSupportFragmentManager();
 //	      FragmentTransaction transaction = fManager.beginTransaction();

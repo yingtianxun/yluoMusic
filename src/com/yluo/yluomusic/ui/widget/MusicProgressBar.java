@@ -15,6 +15,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.WindowManager;
@@ -107,6 +108,8 @@ public class MusicProgressBar extends LinearLayout implements NestedScrollingPar
 		}
 		widthMeasureSpec = MeasureSpec.makeMeasureSpec(totalWidth,
 				MeasureSpec.EXACTLY);
+		
+		scrollToClose();
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 	}
@@ -153,8 +156,17 @@ public class MusicProgressBar extends LinearLayout implements NestedScrollingPar
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 
+		
 		return (int) (outMetrics.density * dp + 0.5f);
 
+	}
+	public boolean onTouchEvent(MotionEvent event) { 
+		
+		if(event.getAction() == MotionEvent.ACTION_DOWN) {
+			getParent().requestDisallowInterceptTouchEvent(true);
+		}
+		
+		return true;
 	}
 
 	@Override
@@ -169,7 +181,11 @@ public class MusicProgressBar extends LinearLayout implements NestedScrollingPar
 
 		mParentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes);
 	}
-
+	
+	private void scrollToClose() {
+		scrollTo(maxScrollSpan, 0);
+	}
+	
 	@Override
 	public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
 		
