@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yluo.yluomusic.ui.widget.StrecthLayout2 xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" 
+        android:background="@android:color/white">
 
         <ImageView
-            android:id="@+id/rv_love_add"
+            android:id="@+id/iv_love_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:clickable="true"
             android:src="@drawable/recycle_view_love_add" />
 
         <LinearLayout
@@ -20,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@id/rv_love_add"
-            android:onClick="true"
+            android:layout_toRightOf="@id/iv_love_add"
+            android:clickable="true"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -35,11 +37,13 @@
                     android:text="你的背包" />
 
                 <ImageView
+                    android:id="@+id/iv_love_mv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/recycle_view_love_mv" />
+                    android:src="@drawable/recycle_view_love_mv"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -47,10 +51,12 @@
                 android:layout_height="wrap_content" >
 
                 <ImageView
+                    android:id="@+id/iv_love_chosen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/recycle_view_love_chosen" />
+                    android:src="@drawable/recycle_view_love_chosen"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tv_love_singer"
@@ -61,21 +67,21 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/iv_love_expand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:clickable="true"
             android:src="@drawable/recycle_view_love_expand" />
     </RelativeLayout>
 
     <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/recycle_view_love_expand_download" />
+        android:id="@+id/gv_song_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:numColumns="5" >
     </GridView>
 
 </com.yluo.yluomusic.ui.widget.StrecthLayout2>
