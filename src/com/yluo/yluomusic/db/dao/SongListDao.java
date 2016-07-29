@@ -18,12 +18,13 @@ import com.yluo.yluomusic.db.helper.SongListSQLiteOpenHelper;
 public class SongListDao {
 
 	private SongListSQLiteOpenHelper songsHelper;
-	private String songListDb;
+	private String songListDb = "SongListDb";
 	private SQLiteDatabase db;
-	public SongListDao(Context context) {
+	public SongListDao(Context context) { 
 		songsHelper = new SongListSQLiteOpenHelper(context, songListDb, null, 3);
 		db = songsHelper.getWritableDatabase();
-		Log.d("create database", "database success");
+		
+		Log.d("create database", "database success"+db);
 	}
 	public void addLoveSong(LoveSongBean loveSongBean) {
 		ContentValues values = new ContentValues();
@@ -51,26 +52,28 @@ public class SongListDao {
 			loveSongBean.setSongName(songName);
 			loveSongBeans.add(loveSongBean);
 		}
-		
-		
 		cursor.close();
 		
 		return loveSongBeans;
 	}
 	
-	public LoveSongBean queryLoveSongBySongName(){
-		LoveSongBean loveSongBean = new LoveSongBean();
+	public List<LoveSongBean> queryLoveSongBySongName(String songNameString){
 		
-		Cursor cursor =  db.query(SongListSQLiteOpenHelper.TABLENAME, new String[]{SongListSQLiteOpenHelper.SONGNAME}, null, null, null, null, null);
-		if(cursor.moveToNext()){
+		List <LoveSongBean> loveSongBeans = new ArrayList<LoveSongBean>();
+		
+		
+		
+		Cursor cursor =  db.query(SongListSQLiteOpenHelper.TABLENAME, null, "songName=?", new String[]{songNameString}, null, null, null);
+		while(cursor.moveToNext()){
 			int id = cursor.getInt(cursor.getColumnIndex(SongListSQLiteOpenHelper.ID));
 			String songName=cursor.getString(cursor.getColumnIndex(SongListSQLiteOpenHelper.SONGNAME));
+			LoveSongBean loveSongBean = new LoveSongBean();
 			loveSongBean.setId(id);
 			loveSongBean.setSongName(songName);
+			loveSongBeans.add(loveSongBean);
 		}
-
 		cursor.close();
-		return loveSongBean;
+		return loveSongBeans;
 	}
 	
 	public List<LoveSongBean> getAllLoveSong() {

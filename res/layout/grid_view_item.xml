@@ -2,48 +2,87 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     android:orientation="horizontal" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_download"
-        
-         />
+    <TextView
+        android:id="@+id/tv_gv_download"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_download"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:text="下载" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_add" />
+    <TextView
+        android:id="@+id/tv_gv_add"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_add"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="添加" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_share" />
+    <TextView
+        android:id="@+id/tv_gv_share"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_share"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="分享" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_songinfo" />
+    <TextView
+        android:id="@+id/tv_gv_songinfo"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_songinfo"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="歌曲信息" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_delete" />
+    <TextView
+        android:id="@+id/tv_gv_delete"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_delete"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="删除" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_songwild" />
+    <TextView
+        android:id="@+id/tv_gv_songwild"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_songwild"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="歌曲漫游" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_ksong" />
+    <TextView
+        android:id="@+id/tv_gv_ksong"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_ksong"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="K歌" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/love_song_gridview_mv" />
+    <TextView
+        android:id="@+id/tv_gv_mv"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="65dp"
+        android:drawableTop="@drawable/love_song_gridview_mv"
+        android:drawablePadding="5dp"
+        android:gravity="center_horizontal"
+        android:text="MV" />
 
 </LinearLayout>

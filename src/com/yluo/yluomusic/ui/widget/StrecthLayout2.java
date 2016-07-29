@@ -1,5 +1,6 @@
 package com.yluo.yluomusic.ui.widget;
 
+import android.R.integer;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.SuppressLint;
@@ -38,6 +39,9 @@ public class StrecthLayout2 extends RelativeLayout {
 		super(context);
 		init();
 	}
+//	public int getHeaderHeight() {
+//		return mHeaderHeight;
+//	}
 
 	@SuppressLint("NewApi")
 	private void init() {
@@ -57,24 +61,41 @@ public class StrecthLayout2 extends RelativeLayout {
 //				});
 
 	}
-
+	public void shrink() {
+//		if(mHeaderHeight != 0) {
+			mCurHeight = mHeaderHeight;
+			requestLayout();
+//		}
+	}
+	public void open() {
+		if(maxHeight != 0) {
+			mCurHeight = maxHeight;
+			requestLayout();
+		}
+	}
+	
 	// @Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		
 		if(mCurHeight != 0) {
-			// 测量之后重用
+			// 测量之后
 			heightMeasureSpec = MeasureSpec.makeMeasureSpec(mCurHeight,
 					MeasureSpec.EXACTLY);
 			bringChildToFront(mHeader);
-			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		} else {
 			// 刚刚创建item时候测量
 			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 			mHeader = getChildAt(0);
 			mCurHeight = mHeaderHeight = getChildAt(0).getMeasuredHeight();
+			maxHeight = mHeaderHeight + getChildAt(1).getMeasuredHeight();
 			bringChildToFront(mHeader);
+			
+//			heightMeasureSpec = MeasureSpec.makeMeasureSpec(mCurHeight,
+//					MeasureSpec.EXACTLY);
+			
 		}
-		
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 		// headerHeight = getChildAt(0).getMeasuredHeight();
 		// bodyHeight = getChildAt(1).getMeasuredHeight();
@@ -103,7 +124,6 @@ public class StrecthLayout2 extends RelativeLayout {
 	public void strecth(int gridViewHeigh) {
 		
 		maxHeight = mHeaderHeight + gridViewHeigh;
-		
 		Log.d(TAG, "strecth:flag="+bFlag);
 		if (bFlag) {
 			animator = ValueAnimator.ofInt(mHeaderHeight, maxHeight);
@@ -121,8 +141,6 @@ public class StrecthLayout2 extends RelativeLayout {
 				requestLayout();
 			}
 		});
-		
-		
 		animator.start();
 	}
 

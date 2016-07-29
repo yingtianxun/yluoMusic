@@ -3,84 +3,89 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" 
-        android:background="@android:color/white">
+        android:background="@android:color/white" >
 
         <ImageView
             android:id="@+id/iv_love_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_width="35dp"
+            android:layout_height="60dp"
             android:clickable="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:src="@drawable/recycle_view_love_add" />
 
         <LinearLayout
             android:id="@+id/ll_love_play_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@id/iv_love_add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:clickable="true"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
                 <TextView
                     android:id="@+id/tv_love_song_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textColor="#2B2B2B"
                     android:text="你的背包" />
 
                 <ImageView
+                    
                     android:id="@+id/iv_love_mv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/recycle_view_love_mv"
-                    android:visibility="invisible" />
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/recycle_view_love_mv" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
                 <ImageView
                     android:id="@+id/iv_love_chosen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     android:layout_gravity="center"
                     android:src="@drawable/recycle_view_love_chosen"
-                    android:visibility="gone" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_love_singer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:textColor="#959595"
+                    android:textSize="13dp"
                     android:text="陈奕迅" />
             </LinearLayout>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/iv_love_expand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:clickable="true"
+            android:padding="15dp"
             android:src="@drawable/recycle_view_love_expand" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <GridView
         android:id="@+id/gv_song_handle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_alignParentBottom="true"
+        android:background="#566C7C"
         android:numColumns="5" >
     </GridView>
 
