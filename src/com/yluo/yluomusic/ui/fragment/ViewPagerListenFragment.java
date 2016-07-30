@@ -1,6 +1,7 @@
 package com.yluo.yluomusic.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
@@ -129,6 +130,18 @@ public class ViewPagerListenFragment extends BaseFragment {
 
 	@Override
 	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void attchWindow(Context context) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void detachWindow() {
 		// TODO Auto-generated method stub
 		
 	}

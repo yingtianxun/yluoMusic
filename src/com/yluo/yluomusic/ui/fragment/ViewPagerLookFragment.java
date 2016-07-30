@@ -1,5 +1,6 @@
 package com.yluo.yluomusic.ui.fragment;
 
+import android.content.Context;
 import android.widget.LinearLayout;
 
 import com.yluo.yluomusic.R;
@@ -28,6 +29,16 @@ public class ViewPagerLookFragment extends BaseFragment{
 	}
 	@Override
 	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void attchWindow(Context context) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void detachWindow() {
 		// TODO Auto-generated method stub
 		
 	}

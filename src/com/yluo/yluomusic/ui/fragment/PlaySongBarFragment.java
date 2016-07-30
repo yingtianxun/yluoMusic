@@ -1,57 +1,47 @@
 package com.yluo.yluomusic.ui.fragment;
 
 
-import android.app.Service;
-import android.content.ComponentName;
+import org.greenrobot.eventbus.EventBus;
+
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.yluo.yluomusic.R;
-import com.yluo.yluomusic.aidl.SongManager;
+import com.yluo.yluomusic.eventbusmessage.OpenPlayMusicPageMessage;
 import com.yluo.yluomusic.presenter.PlayMusicBarPresenter;
-import com.yluo.yluomusic.service.PlayMusicService;
 import com.yluo.yluomusic.ui.fragment.base.BaseFragment;
+import com.yluo.yluomusic.ui.widget.CircleImageView;
 
 public class PlaySongBarFragment extends BaseFragment{
 	
 	private static final String TAG = "PlaySongBarFragment";
-	private SongManager songManager;
-	
 	private PlayMusicBarPresenter barPresenter;
+	
+	private CircleImageView cimvRotateIcon; // 播放时旋转的图片按钮
 	@Override
 	protected int getLayoutId() {
 		return R.layout.fragment_play_music_bar;
 	}
 	
-	
 	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-		// 一开始就绑定服务
-		Intent intent = new Intent(getActivity(),PlayMusicService.class);
-		
-		getActivity().bindService(
-				intent,
-				mPlayMusicConnection,
-				Service.BIND_AUTO_CREATE);
-		
+	protected void initConfig() {
+		barPresenter = new PlayMusicBarPresenter(this);
+	}
+	@Override
+	protected void attchWindow(Context context) {
+		barPresenter.onAttach();
 	}
 
 	@Override
-	public void onDetach() {
-		// 注销服务
-		getActivity().unbindService(mPlayMusicConnection);
-		super.onDetach();
+	protected void detachWindow() {
+		barPresenter.onDetach();
 	}
 
 
 	@Override
 	protected void initUI() {
-		
+		cimvRotateIcon = findViewById(R.id.cimv_rotate_icon);
 	}
 
 	@Override
@@ -61,30 +51,19 @@ public class PlaySongBarFragment extends BaseFragment{
 
 	@Override
 	protected void initEvent() {
-		
+		cimvRotateIcon.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openRotationMusicView();
+				
+			}
+		});
 	}
 	
-	private ServiceConnection mPlayMusicConnection = new ServiceConnection() {
-		
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			
-			
-		}
-		
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) {
-			Log.d(TAG, "---绑定服务---成功");
-			
-			SongManager songManager = SongManager.Stub.asInterface(service);
 	
-			
-		}
-	};
-	@Override
-	protected void initConfig() {
-		// TODO Auto-generated method stub
+	private void openRotationMusicView() {
 		
+		EventBus.getDefault().post(new OpenPlayMusicPageMessage());
 	}
 
 }

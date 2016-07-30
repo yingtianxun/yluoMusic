@@ -72,6 +72,16 @@ public class SlideMenuFragment extends BaseFragment{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	protected void attchWindow(Context context) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void detachWindow() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	
