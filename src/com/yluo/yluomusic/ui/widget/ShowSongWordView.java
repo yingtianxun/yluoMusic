@@ -33,7 +33,6 @@ public class ShowSongWordView extends View {
 	private boolean mCurDrawTextUp = true; // 用来判断画在上面还是下面的
 	private boolean mNextDrawTextUp = false; // 用来判断画在上面还是下面的
 	private int mCurSongingLine = 0; // 当前唱的行
-
 	private float mSongWordTextSize;
 	private Rect mTextRect;
 	private Bitmap mMaskBmp;
