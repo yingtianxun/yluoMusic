@@ -6,24 +6,30 @@ import com.yluo.yluomusic.service.PlayMusicService;
 import com.yluo.yluomusic.ui.activity.base.BaseActivity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.CheckBox;
 
 
 public class MainActivity extends BaseActivity {
-
 	
-    private CheckBox mCbWifiConnect;
+	private static final String TAG = "MainActivity";
+	private Intent musicService;
    
 	@Override
 	protected void initUI() {
 		
 		setContentView(R.layout.activity_layout);
 		
-		Intent intent = new Intent(this,PlayMusicService.class);
+		musicService = new Intent(this,PlayMusicService.class);
 		
 		// 这部分到时候放在splashActivit里面
-		startService(intent);
-		
+		startService(musicService);
+	}
+	@Override
+	protected void onDestroy() {
+		Log.d(TAG, "-----退出了-------");
+		stopService(musicService);
+		super.onDestroy();
 	}
 
         
@@ -70,15 +76,6 @@ public class MainActivity extends BaseActivity {
 //        transaction.commit();
        
    
-	private void handleCbWifiOpenOrClose(boolean isOpen) {
-		
-		int bkDrawableID = isOpen ? 
-				R.drawable.slide_menu_checkbox_open : 
-					R.drawable.slide_menu_checkbox_close;
-		
-		mCbWifiConnect.setBackgroundResource(bkDrawableID);
-
-	}
 
 
 }

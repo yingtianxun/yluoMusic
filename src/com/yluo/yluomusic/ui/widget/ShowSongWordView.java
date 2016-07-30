@@ -66,7 +66,6 @@ public class ShowSongWordView extends View {
 
 	private void initConfig() {
 		mSongWordTextSize = dp2px(14);
-
 	}
 
 	private int dp2px(float dp) {
@@ -77,7 +76,6 @@ public class ShowSongWordView extends View {
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 
 		return (int) (outMetrics.density * dp + 0.5f);
-
 	}
 	/**
 	 * 创建歌词的遮罩
@@ -87,21 +85,15 @@ public class ShowSongWordView extends View {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 		createWordMask();
-
 	}
 
 	private void createWordMask() {
-		
-	
 		if (wordLines == null || wordLines.size() == 0) {
-
 			return;
 		}
-		
 		if(mMaskBmp != null) {
 			return;
 		}
-		Log.d(TAG, "----创建啦啦------------");
 		mMaskBmp = Bitmap.createBitmap(getAvailableWidth(),
 				mTextRect.height() * 2, Bitmap.Config.ARGB_8888);
 
@@ -187,7 +179,6 @@ public class ShowSongWordView extends View {
 	private int getAvailableWidth() {
 		return getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
 	}
-
 	/**
 	 * 
 	 * @return
@@ -314,14 +305,15 @@ public class ShowSongWordView extends View {
 	}
 
 	public void setSongDuration(int songDuration) {
-		
 		mSongDuration = songDuration;
 		
 	}
 	public void calcWidth(WordLine wordLine) {
 		mPaint.setTextSize(mSongWordTextSize);
 		Rect temFontpRect = new Rect(); //
-		mPaint.getTextBounds(wordLine.getWords(), 0, wordLine.getWords().length(), temFontpRect);
+		mPaint.getTextBounds(wordLine.getWords(), 
+				0, wordLine.getWords().length(), temFontpRect);
+		
 		wordLine.setWidth(temFontpRect.width());
 	}
 	

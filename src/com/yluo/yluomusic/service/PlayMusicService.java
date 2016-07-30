@@ -15,6 +15,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
@@ -27,7 +28,7 @@ public class PlayMusicService extends Service {
 
 	class SongInfo {
 		List<WordLine> wordLines;
-		float songDuration;
+		int songDuration;
 		String singer;
 		String songName;
 		String path;
@@ -42,7 +43,11 @@ public class PlayMusicService extends Service {
 	private ListenSongPlayProgressRunable listenRunable 
 		=  new ListenSongPlayProgressRunable();
 	
+	private boolean isPlaying = false;
+	
 	private Intent songPlayProgressIntent = new Intent();
+	
+	private boolean mIsPause = false;
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -64,15 +69,24 @@ public class PlayMusicService extends Service {
 		return new MusicBinder();
 	}
 
-	public int startPlaySong(String songName) {
+	public void startPlaySong(String songName) {
 		SongInfo songInfo = songWordLines.get(songName);
-
 		if (songInfo == null) {
-			ToastUtil.show(this, "----找不到歌曲-----");
 			// 找不到任何歌曲信息
-			return 0;
+			return ;
 		}
-		ToastUtil.show(this, "----找到歌曲-----");
+		
+		if(mIsPause) {
+			mediaPlayer.start();
+			handler.post(listenRunable);
+			return;
+		}
+		if(isPlaying) {
+			
+			isPlaying = false;
+			pauseMusic();
+		}
+		
 		mediaPlayer = MediaPlayer.create(this, R.raw.song);
 		if (mediaPlayer != null) {
 			mediaPlayer.stop();
@@ -80,9 +94,24 @@ public class PlayMusicService extends Service {
 	
 		try {
 			mediaPlayer.prepare();
+			mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+				
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+					
+					Intent intent = new Intent();
+					intent.setAction("com.yluo.yluomusic.complete");
+					
+					sendBroadcast(intent); // 发送结束的广播
+					
+					isPlaying = false; // 判断是否在播放音乐
+				}
+			});
+			songInfo.songDuration = mediaPlayer.getDuration();
 			mediaPlayer.start();
+			isPlaying = true; // 判断是否在播放音乐
 			
-			handler.post(listenRunable);
+			handler.post(listenRunable); //监听进度的
 			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -90,12 +119,32 @@ public class PlayMusicService extends Service {
 			e.printStackTrace();
 		}
 		
-		broadcastSongLrc(songInfo);
+		broadcastSongLrc(songInfo); // 发送歌词
 		
-		return mediaPlayer.getDuration();
+		broadcastSongDuration(songInfo); // 发送歌的长度
+		
 		// 解析歌词
 	}
-
+	
+	private void broadcastSongDuration(SongInfo songInfo) {
+		
+		Intent intent = new Intent();
+		intent.setAction("com.yluo.yluomusic.songduration");
+		
+		intent.putExtra("songduration", songInfo.songDuration);
+		
+		sendBroadcast(intent);
+	}
+	
+	// 发送暂停的广播
+	private void pauseMusic() {
+		mIsPause = true;
+		mediaPlayer.pause();
+		Intent intent = new Intent();
+		intent.setAction("com.yluo.yluomusic.songpause");
+		sendBroadcast(intent);
+	}
+	
 	private void broadcastSongLrc(SongInfo songInfo) {
 		if(songInfo.wordLines == null) {
 			handler.post(new ParseSongLrcRunnable(
@@ -106,18 +155,28 @@ public class PlayMusicService extends Service {
 			sendSongIntent(songInfo.wordLines);
 		}
 	}
-	
-	private void sendSongIntent(List<WordLine> wordLines) {
-		Intent intent = new Intent();
-		intent.setAction("com.yluo.yluomusic.songlrc");
+	public void changePlaySongProgress(int progress) {
+		if(isPlaying) {
+			mediaPlayer.seekTo(progress);
+		}
 		
-		intent.putParcelableArrayListExtra("wordLines", (ArrayList<? extends Parcelable>) wordLines);
-		sendBroadcast(intent);
+	}
+	private void sendSongIntent(List<WordLine> wordLines) {
+		Intent songLrcIntent = new Intent();
+		songLrcIntent.setAction("com.yluo.yluomusic.songlrc");
+		
+		songLrcIntent.putParcelableArrayListExtra("wordLines", (ArrayList<? extends Parcelable>) wordLines);
+		
+		
+		sendBroadcast(songLrcIntent);
 	}
 
 	public void stopMusic() {
 		if (mediaPlayer != null) {
 			mediaPlayer.stop();
+			
+			Intent intent = new Intent();
+			intent.setAction("com.yluo.yluomusic.songstop");
 		}
 	}
 
@@ -156,12 +215,9 @@ public class PlayMusicService extends Service {
 			
 			songPlayProgressIntent.putExtra("curProgress", mediaPlayer.getCurrentPosition());
 			
-			
 			sendBroadcast(songPlayProgressIntent);
 			
 			handler.postDelayed(this, 20);
-			
-//			sv_songword.setCurPlayTime());
 		}
 		
 	}
@@ -175,36 +231,49 @@ public class PlayMusicService extends Service {
 		}
 
 		@Override
-		public int startPlaySong(String songName) throws RemoteException {
-			return PlayMusicService.this.startPlaySong(songName);
+		public void startPlaySong(String songName) throws RemoteException {
+			 PlayMusicService.this.startPlaySong(songName);
 		}
 
 		@Override
 		public void stopPlaySong() throws RemoteException {
-			// TODO Auto-generated method stub
-			
+			PlayMusicService.this.stopMusic();
 		}
 
 		@Override
-		public void changePlaySongProgress(float progress)
+		public void changePlaySongProgress(int progress)
 				throws RemoteException {
-			// TODO Auto-generated method stub
 			
+			PlayMusicService.this.changePlaySongProgress(progress);
 		}
 
 		@Override
-		public float getSongDuration(String songName) throws RemoteException {
-			// TODO Auto-generated method stub
-			return 0;
+		public int getSongDuration(String songName) throws RemoteException {
+			
+			return songWordLines.get(songName).songDuration;
 		}
 
 		@Override
 		public List<WordLine> getSongWordLine(String songName)
 				throws RemoteException {
-			// TODO Auto-generated method stub
-			return null;
+			
+			return songWordLines.get(songName).wordLines;
+		}
+
+		@Override
+		public boolean isPlayingMusic() throws RemoteException {
+			
+			return PlayMusicService.this.isPlaying;
+		}
+
+		@Override
+		public void pauseMusic() throws RemoteException {
+			PlayMusicService.this.pauseMusic();
+			
 		}
 
 	}
+
+	
 
 }

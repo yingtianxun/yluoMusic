@@ -5,12 +5,12 @@ import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yluo.yluomusic.R;
 import com.yluo.yluomusic.aidl.WordLine;
@@ -20,7 +20,6 @@ import com.yluo.yluomusic.ui.fragment.base.BaseFragment;
 import com.yluo.yluomusic.ui.widget.CircleImageView;
 import com.yluo.yluomusic.ui.widget.ShowSongWordView;
 import com.yluo.yluomusic.ui.widget.YluoSeekBar;
-import com.yluo.yluomusic.utils.ToastUtil;
 
 public class PlaySongBarFragment extends BaseFragment {
 
@@ -44,25 +43,36 @@ public class PlaySongBarFragment extends BaseFragment {
 
 	private ImageButton iBtnShowCurSongList; // 显示当前播放列表的
 
+	private boolean mIsPressSeekBar = false;
+
 	@Override
 	protected int getLayoutId() {
 		return R.layout.fragment_play_music_bar;
 	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		barPresenter.onDetach();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		barPresenter.onAttach();
+	}
+
 
 	@Override
 	protected void attchWindow(Context context) {
 		if (barPresenter == null) {
 			barPresenter = new PlayMusicBarPresenter(this);
 		}
-
-		barPresenter.onAttach();
 	}
 
 	@Override
 	protected void detachWindow() {
-		barPresenter.onDetach();
 	}
-
 	@Override
 	protected void initUI() {
 		// 旋转的按钮
@@ -82,7 +92,6 @@ public class PlaySongBarFragment extends BaseFragment {
 		// 显示当前播放列表
 		iBtnShowCurSongList = findViewById(R.id.ibtn_show_cur_song_list);
 	}
-
 	@Override
 	protected void initData() {
 
@@ -112,6 +121,28 @@ public class PlaySongBarFragment extends BaseFragment {
 				onNextSong();
 			}
 		});
+		
+		seekBarSongProgress.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				
+				barPresenter.changeSongProgress(seekBar.getProgress());
+				
+				mIsPressSeekBar = false;
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				mIsPressSeekBar = true;
+				
+			}
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+			}
+		});
 	}
 
 	private void openRotationMusicView() {
@@ -119,7 +150,7 @@ public class PlaySongBarFragment extends BaseFragment {
 	}
 
 	private void onPlayMusic() {
-//		barPresenter.playMusic();
+		barPresenter.playMusic("无字碑");
 	}
 
 	private void onNextSong() {
@@ -131,6 +162,9 @@ public class PlaySongBarFragment extends BaseFragment {
 		if(songDurationTime == 0) {
 			return;
 		}
+		
+		iBtnPlaySong.setImageResource(R.drawable.skin_kg_ic_playing_bar_pause_default);
+		
 		seekBarSongProgress.setMax(songDurationTime);
 		
 		cimvRotateIcon.startRotation();
@@ -142,7 +176,10 @@ public class PlaySongBarFragment extends BaseFragment {
 		if(curProgress == -1) {
 			return;
 		}
-		seekBarSongProgress.setProgress(curProgress);
+		
+		if(!mIsPressSeekBar ) {
+			seekBarSongProgress.setProgress(curProgress);
+		}
 		
 		sVsongword.setCurPlayTime(curProgress);
 	}
@@ -152,6 +189,17 @@ public class PlaySongBarFragment extends BaseFragment {
 		}
 		
 		sVsongword.setSongWords(wordLines);
+	}
+
+	public void onUpdateStopSong() {
+		cimvRotateIcon.stopRotation();
+		iBtnPlaySong.setImageResource(R.drawable.skin_kg_ic_playing_bar_play_default);
+	}
+
+	public void onUpdatePauseSong() {
+		cimvRotateIcon.stopRotation();
+		iBtnPlaySong.setImageResource(R.drawable.skin_kg_ic_playing_bar_play_default);
+		
 	}
 
 }

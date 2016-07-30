@@ -50,9 +50,6 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 
 	private boolean mIsWithTime = false;
 
-//	private String mCurProcessTime = "0:00";
-//
-//	private String mTotalTime = "4:02";
 
 	private OnSeekBarChangeListener mOnSeekBarChangeListener;
 
@@ -524,7 +521,7 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-
+		mOnSeekBarChangeListener.onStartTrackingTouch(seekBar);
 	}
 
 	@Override
@@ -534,8 +531,7 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 			mIsdrawBiger = 0;
 		}
 		if (mOnSeekBarChangeListener != null) {
-			mOnSeekBarChangeListener.onProgressChanged(seekBar, getProgress(),
-					false);
+			mOnSeekBarChangeListener.onStopTrackingTouch(seekBar);
 		}
 	}
 

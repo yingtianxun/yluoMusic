@@ -1,6 +1,7 @@
 package com.yluo.yluomusic.presenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -31,31 +32,56 @@ public class PlayMusicBarPresenter extends BasePlayMusicPresent {
 		super(barFragment);
 		this.barFragment = barFragment;
 	}
-
-	@Override
-	public void updateSongDuationTime(int songDuration) {
-		barFragment.onUpdateSongDuationTime(songDuration);
-		
-		// 监听播放进度
-		IntentFilter progressFilter = new IntentFilter("com.yluo.yluomusic.songprogress");
-		barFragment.getActivity().registerReceiver(new SongProgressReceiver(), progressFilter);
-		
-		// 监听歌词
-		IntentFilter songFilter = new IntentFilter("com.yluo.yluomusic.songlrc");
-		barFragment.getActivity().registerReceiver(new SongLrcReceiver(), songFilter);
-	}
-
+	
+	// 获取歌曲的长度,并且在这里监听进度和歌词
+	
 	public void nextSong() {
+	
 	}
 
 	@Override
-	public void updateSongLrc(ArrayList<WordLine> wordLines) {
+	public void updateSongLrc(List<WordLine> wordLines) {
 		barFragment.onUpdateSongLrc(wordLines);
 	}
 
 	@Override
 	public void updateSongProgress(int progress) {
 		barFragment.onUpdateSongProgress(progress);
+	}
+
+	@Override
+	public void updateSongDuration(int songDuration) {
+		Log.d(TAG, "--------songDuration:" + songDuration);
+		barFragment.onUpdateSongDuationTime(songDuration);
+		
+		
+	}
+
+	@Override
+	public void updateStopSong() {
+		barFragment.onUpdateStopSong();
+		
+	}
+
+	@Override
+	public void updateSongPause() {
+		barFragment.onUpdatePauseSong();
+		
+	}
+
+	@Override
+	public void updateSongComplete() {
+		barFragment.onUpdateStopSong();
+		
+	}
+
+	public void changeSongProgress(int progress) {
+		try {
+			songManager.changePlaySongProgress(progress);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
