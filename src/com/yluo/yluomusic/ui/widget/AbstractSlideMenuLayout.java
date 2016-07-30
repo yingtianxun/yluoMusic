@@ -24,7 +24,6 @@ import android.widget.Toast;
  * @author 37243
  *
  */
-
 public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 	private static final String TAG = "AbstractSlideMenuLayout";

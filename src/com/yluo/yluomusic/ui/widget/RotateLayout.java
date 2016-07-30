@@ -27,7 +27,6 @@ public class RotateLayout extends FrameLayout {
 	private boolean mIsMoveY = false;
 
 	private boolean mIsDown = false;
-
 	private boolean mIsMove = false;
 
 	private float mLastX = 0;
