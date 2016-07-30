@@ -27,7 +27,6 @@ public class YluoClipImageView extends ImageView {
 		super(context, attrs);
 		init();
 	}
-
 	public YluoClipImageView(Context context) {
 		super(context);
 		init();
