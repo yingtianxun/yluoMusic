@@ -1,10 +1,7 @@
 package com.yluo.yluomusic.ui.widget;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.yluo.yluomusic.aidl.WordLine;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -105,6 +102,8 @@ public class MusicWordView extends View {
 
 	private boolean mIsDrawBtn = false;
 
+	private boolean mIsTouchDown = false; // 是否触摸
+	
 	private Runnable mCancleDrawBtnRunable = new Runnable() {
 
 		@Override
@@ -113,6 +112,10 @@ public class MusicWordView extends View {
 			invalidate();
 		}
 	};
+
+	private boolean mIsCancleDrawBtnRunable = true;
+
+//	private int mCurScrollItem = 0;
 
 	public MusicWordView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -330,6 +333,7 @@ public class MusicWordView extends View {
 			getParent().requestDisallowInterceptTouchEvent(true);
 			mIsMove = false;
 			mIsMoveX = false;
+			mIsTouchDown = true;// 用来判断消失不消失辅助线的
 		}
 			break;
 		case MotionEvent.ACTION_MOVE: {
@@ -360,16 +364,21 @@ public class MusicWordView extends View {
 			}
 
 			mScorllDisY -= disY;
-
-			removeCallbacks(mCancleDrawBtnRunable);
+			
+			if(!mIsCancleDrawBtnRunable) {
+				removeCallbacks(mCancleDrawBtnRunable);
+				mIsCancleDrawBtnRunable = true;
+			}
+			
 			mIsDrawBtn = true; // 画按钮出来
+			
 			invalidate();
 		}
 			break;
 		case MotionEvent.ACTION_UP: {
 			// 判断是否点击圆形了
 			if (isClickPlayBtn(event)) {
-
+				
 				Log.d(TAG, "点击圆形了--------");
 			} else {
 				// 滚动事件
@@ -386,6 +395,8 @@ public class MusicWordView extends View {
 			}
 
 			postDelayed(mCancleDrawBtnRunable, 2000);
+			mIsCancleDrawBtnRunable = true;
+			mIsTouchDown = false;
 		}
 			break;
 		default:
@@ -395,7 +406,8 @@ public class MusicWordView extends View {
 		mLastY = event.getY();
 		return true;
 	}
-
+	
+	// 根据当前时间滚动到哪一行
 	public void srcollToLine(int lineIndex) {
 
 		if (wordLines == null || wordLines.size() == 0) {
@@ -411,9 +423,13 @@ public class MusicWordView extends View {
 			return;
 		}
 		int disY = (int) ((-(getMeasuredHeight() / 2 - lineIndex * mLineHeight - mLineHeight / 2)) - mScorllDisY);
-
-		mCurSongingLine = lineIndex;
-
+		
+//		if() {
+//			
+//		}
+		
+		mCurSongingLine = lineIndex; // 当前唱歌的行
+//		&& !mIsTouchDown
 		mCurSelecLine = mCurSongingLine;
 
 		mCurLineProgress = (wordLines.get(mCurSongingLine).getWidth() + mTextRect
@@ -527,7 +543,7 @@ public class MusicWordView extends View {
 		float curShowHeight = 0;
 		for (int i = mTopLinePosition; i < wordLines.size(); i++) {
 
-			curShowHeight = i * mLineHeight - mScorllDisY;
+			curShowHeight = i * mLineHeight - mScorllDisY; // 在这里算出第几行的
 
 			WordLine wordLine = wordLines.get(i);
 			changeLineByScroll((int) curShowHeight, i); // 这里滚着滚动换色的
@@ -623,10 +639,7 @@ public class MusicWordView extends View {
 		savePaint();
 		paint.setColor(songWordColor);
 		paint.setTextSize(mTimeIndicatorTextSize);
-
-		WordLine wordLine = wordLines.get(mCurSongingLine);
-
-		canvas.drawText(wordLine.getWordLineTime(), 0 + getPaddingLeft(),
+		canvas.drawText(wordLines.get(mCurSelecLine).getWordLineTime(), 0 + getPaddingLeft(),
 				(getMeasuredHeight() + mTimeIndicateRect.height()) / 2, paint);
 
 		restorePaint();
@@ -687,14 +700,14 @@ public class MusicWordView extends View {
 		if(wordLines == null || wordLines.size() == 0) {
 			return;
 		}
-		
 		for (int i = 0; i < wordLines.size(); i++) {
-
 			WordLine wordLine = wordLines.get(i);
+			
+			// 获取到这一行了
 			if (wordLine.getTime() <= curTime
 					&& (wordLine.getTime() + wordLine.getDuration()) >= curTime) {
 
-				if (i != mCurSongingLine) {
+				if (i != mCurSongingLine ) {
 					srcollToLine(i);
 				}
 				float hasPlayPrecent = (float) ((curTime - wordLine.getTime()) 
@@ -715,27 +728,6 @@ public class MusicWordView extends View {
 
 		invalidate();
 	}
-
-
-//	private void calcWordLineDurationTime() {
-//		
-//		if(wordLines == null && wordLines.size() == 0) {
-//			return;
-//		}
-//		
-//		for (int i = 0; i < wordLines.size() - 1; i++) {
-//			WordLine curWordLine = wordLines.get(i);
-//			WordLine nextWordLine = wordLines.get(i + 1);
-//			// 计算持续时间// 最后一个就在后面计算
-//			
-//			curWordLine.setDuration((float)(nextWordLine.getTime() 
-//						- curWordLine.getTime()));
-//		}
-//		WordLine lastWordLine = wordLines.get(wordLines.size() - 1);
-//		
-//		lastWordLine.setDuration((float) (mSongDuration - lastWordLine.getTime()));
-//		
-//	}
 
 	public void calcWordLineWidth(WordLine wordLine) {
 		paint.setTextSize(mSongWordTextSize);

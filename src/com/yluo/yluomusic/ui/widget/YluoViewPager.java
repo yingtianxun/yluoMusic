@@ -67,8 +67,6 @@ public class YluoViewPager extends ViewPager {
 		case MotionEvent.ACTION_MOVE:
 			eventUtil.calcMoveDirection(event);
 			// 上下移动的话就不做和任何处理
-				
-			
 			if (eventUtil.isMoveY()) {
 				getParent().requestDisallowInterceptTouchEvent(false);
 				return false;
