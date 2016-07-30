@@ -34,7 +34,6 @@ public class HideSlideMenuLayout extends ViewGroup {
 	private Point windowSize;
 
 	private static final int LEFT_MENU_OPEN = 1;
-
 	private static final int RIGHT_MENU_OPEN = -1;
 
 	private static final int MENU_CLOSE = 0;
