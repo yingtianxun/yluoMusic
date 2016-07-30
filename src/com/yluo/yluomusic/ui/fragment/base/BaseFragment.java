@@ -6,11 +6,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public  abstract class BaseFragment extends Fragment{
+	private static final String TAG = "BaseFragment";
 	private View rootView;
 	@SuppressLint("InflateParams")
 	@Override
@@ -20,7 +22,6 @@ public  abstract class BaseFragment extends Fragment{
 		rootView = createView(inflater);
 		
 		
-		initConfig();
 		
 		initUI();
 		initData();
@@ -34,7 +35,7 @@ public  abstract class BaseFragment extends Fragment{
 			
 	}
 	protected abstract int getLayoutId();
-	protected abstract void initConfig(); // 初始化配置
+//	protected abstract void initConfig(); // 初始化配置
 	protected abstract void initUI() ;
 	protected abstract void initData() ;
 	protected abstract void initEvent();

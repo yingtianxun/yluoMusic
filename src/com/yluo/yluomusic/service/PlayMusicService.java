@@ -1,6 +1,7 @@
 package com.yluo.yluomusic.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.yluo.yluomusic.R;
 import com.yluo.yluomusic.aidl.SongManager;
 import com.yluo.yluomusic.aidl.WordLine;
 import com.yluo.yluomusic.utils.ParseSongLrc;
+import com.yluo.yluomusic.utils.ToastUtil;
 
 import android.app.Service;
 import android.content.Intent;
@@ -16,10 +18,11 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.os.RemoteException;
 
 public class PlayMusicService extends Service {
-
+	private static final String TAG = "PlayMusicService";
 	private Handler handler = new Handler();
 
 	class SongInfo {
@@ -34,7 +37,13 @@ public class PlayMusicService extends Service {
 	private MediaPlayer mediaPlayer;
 
 	private HashMap<String, SongInfo> songWordLines = new HashMap<String, SongInfo>();
-
+	
+	
+	private ListenSongPlayProgressRunable listenRunable 
+		=  new ListenSongPlayProgressRunable();
+	
+	private Intent songPlayProgressIntent = new Intent();
+	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// 初始化数据的
@@ -44,7 +53,9 @@ public class PlayMusicService extends Service {
 		songInfo.songName = "无字碑";
 
 		songWordLines.put(songInfo.songName, songInfo);
-
+		
+		songPlayProgressIntent.setAction("com.yluo.yluomusic.songprogress");
+		
 		return super.onStartCommand(intent, flags, startId);
 	}
 
@@ -57,18 +68,22 @@ public class PlayMusicService extends Service {
 		SongInfo songInfo = songWordLines.get(songName);
 
 		if (songInfo == null) {
+			ToastUtil.show(this, "----找不到歌曲-----");
 			// 找不到任何歌曲信息
 			return 0;
 		}
+		ToastUtil.show(this, "----找到歌曲-----");
+		mediaPlayer = MediaPlayer.create(this, R.raw.song);
 		if (mediaPlayer != null) {
-
 			mediaPlayer.stop();
-
-			mediaPlayer = MediaPlayer.create(this, R.raw.song);
 		}
+	
 		try {
 			mediaPlayer.prepare();
 			mediaPlayer.start();
+			
+			handler.post(listenRunable);
+			
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -95,7 +110,8 @@ public class PlayMusicService extends Service {
 	private void sendSongIntent(List<WordLine> wordLines) {
 		Intent intent = new Intent();
 		intent.setAction("com.yluo.yluomusic.songlrc");
-		intent.putExtra("wordLines", wordLines.toArray());
+		
+		intent.putParcelableArrayListExtra("wordLines", (ArrayList<? extends Parcelable>) wordLines);
 		sendBroadcast(intent);
 	}
 
@@ -131,6 +147,23 @@ public class PlayMusicService extends Service {
 			songWordLines.get(songName).wordLines = wordLines;
 			sendSongIntent(wordLines);
 		}
+	}
+	
+	class ListenSongPlayProgressRunable implements Runnable {
+
+		@Override
+		public void run() {
+			
+			songPlayProgressIntent.putExtra("curProgress", mediaPlayer.getCurrentPosition());
+			
+			
+			sendBroadcast(songPlayProgressIntent);
+			
+			handler.postDelayed(this, 20);
+			
+//			sv_songword.setCurPlayTime());
+		}
+		
 	}
 
 	  class MusicBinder extends Binder implements SongManager {

@@ -128,11 +128,7 @@ public class ViewPagerListenFragment extends BaseFragment {
 
 	}
 
-	@Override
-	protected void initConfig() {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	protected void attchWindow(Context context) {

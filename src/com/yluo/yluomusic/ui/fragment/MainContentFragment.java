@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import android.app.usage.UsageEvents.Event;
 import android.content.Context;
@@ -46,7 +47,7 @@ public class MainContentFragment extends BaseFragment {
 
 	private SacleSlideMenuLayout slMainContent;
 
-	private ShowSongWordView sv_songword;
+	
 
 	private HideSlideMenuLayout hlSubMenu;
 
@@ -76,9 +77,6 @@ public class MainContentFragment extends BaseFragment {
 
 		// 设置左菜单
 		slMainContent.setLeftMenuView(R.layout.fragment_slide_menu);
-
-		// 设置歌词
-		sv_songword = findViewById(R.id.sv_songword);
 
 
 		// 设置子菜单
@@ -175,12 +173,9 @@ public class MainContentFragment extends BaseFragment {
 		return view;
 	}
 
-	@Override
-	protected void initConfig() {
-		
-	}
+
 	
-	@MainThread
+	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onOpenRotationMusicView(OpenPlayMusicPageMessage event) {
 		rotateLayoutMain.opemMusicView();
 	}

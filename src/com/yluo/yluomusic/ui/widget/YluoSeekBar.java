@@ -44,7 +44,7 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 
 	private Paint mPaint;
 
-	private boolean isFirstMove = true; // 是不是第一次移动用来判断画半圆的
+	private boolean isFirstMove = false; // 是不是第一次移动用来判断画半圆的
 
 	private int lastProces = 0; // 上一次的进度
 
@@ -57,6 +57,8 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 	private OnSeekBarChangeListener mOnSeekBarChangeListener;
 
 	private boolean mIsFirstCalc = false; // 用来判断减去两边字体宽度的
+
+//	private boolean mIsTouch;
 
 //	private int originPaddingLeft = 0;
 //

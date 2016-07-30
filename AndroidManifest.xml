@@ -24,7 +24,7 @@
         </activity>
         
         <service android:name="com.yluo.yluomusic.service.PlayMusicService"
-            ></service>
+          ></service>
     </application>
 
 </manifest>

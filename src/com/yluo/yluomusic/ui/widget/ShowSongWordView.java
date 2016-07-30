@@ -15,6 +15,7 @@ import android.graphics.Rect;
 import android.graphics.Xfermode;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -90,12 +91,17 @@ public class ShowSongWordView extends View {
 	}
 
 	private void createWordMask() {
-
-		if (mMaskBmp != null || wordLines.size() == 0) {
+		
+	
+		if (wordLines == null || wordLines.size() == 0) {
 
 			return;
 		}
-
+		
+		if(mMaskBmp != null) {
+			return;
+		}
+		Log.d(TAG, "----创建啦啦------------");
 		mMaskBmp = Bitmap.createBitmap(getAvailableWidth(),
 				mTextRect.height() * 2, Bitmap.Config.ARGB_8888);
 
@@ -106,6 +112,9 @@ public class ShowSongWordView extends View {
 	}
 
 	private void calcWordLinesDrawWidth() {
+		if(wordLines == null) {
+			return;
+		}
 		for (int i = 0; i < wordLines.size(); i++) {
 			calcWidth(wordLines.get(i));
 		}
@@ -136,6 +145,7 @@ public class ShowSongWordView extends View {
 	}
 
 	private int findNotEmptySongLine(int curSongingLine) {
+
 		String drawText = "";
 		int lineIndex = -1;
 		for (int i = curSongingLine; i < wordLines.size(); i++) {
@@ -151,8 +161,8 @@ public class ShowSongWordView extends View {
 	}
 
 	protected void onDraw(Canvas canvas) {
-
-		if (wordLines.size() == 0) {
+	
+		if (wordLines == null || wordLines.size() == 0) {
 			drawEmptyWord(canvas); // 提示没歌词
 		} else {
 			drawCurWordLine(canvas);
@@ -209,7 +219,7 @@ public class ShowSongWordView extends View {
 	}
 
 	public void setCurPlayTime(int curTime) {
-		if (wordLines.size() == 0) {
+		if (wordLines == null || wordLines.size() == 0) {
 			return;
 		}
 
@@ -297,14 +307,16 @@ public class ShowSongWordView extends View {
 	}
 
 	public void setSongWords(List<WordLine> wordLines) {
-
 		this.wordLines = wordLines;
 		calcWordLinesDrawWidth(); // 就算歌词的坐标
+		createWordMask();
 		invalidate();
 	}
 
 	public void setSongDuration(int songDuration) {
+		
 		mSongDuration = songDuration;
+		
 	}
 	public void calcWidth(WordLine wordLine) {
 		mPaint.setTextSize(mSongWordTextSize);
@@ -312,4 +324,6 @@ public class ShowSongWordView extends View {
 		mPaint.getTextBounds(wordLine.getWords(), 0, wordLine.getWords().length(), temFontpRect);
 		wordLine.setWidth(temFontpRect.width());
 	}
+	
+	
 }
