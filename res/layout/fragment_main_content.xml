@@ -3,15 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rotate_layout_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-     >
+    android:layout_height="match_parent" >
 
     <com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout
         android:id="@+id/sl_main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-       android:background="@drawable/slide_menu_background" >
-
+        android:layout_height="match_parent"
+        android:background="@drawable/slide_menu_background" >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -30,9 +28,7 @@
                     android:background="@android:color/holo_blue_dark"
                     android:paddingBottom="60dp" />
             </com.yluo.yluomusic.ui.widget.HideSlideMenuLayout>
-
             <!-- 导航栏 -->
-
             <RelativeLayout
                 android:id="@+id/rl_nav"
                 android:layout_width="match_parent"
@@ -73,104 +69,13 @@
                     android:layout_toLeftOf="@id/ibtn_nav_search"
                     android:layout_toRightOf="@id/ibtn_nav_icon" />
             </RelativeLayout>
-
             <!-- 播放栏 -->
-
-            <com.yluo.yluomusic.ui.widget.MusicProgressBar
+            <fragment
+                android:id="@+id/fragment_playsongbar"
+                android:name="com.yluo.yluomusic.ui.fragment.PlaySongBarFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/white" >
-
-                <com.yluo.yluomusic.ui.widget.ShowSongWordView
-                    android:id="@+id/sv_songword"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp" >
-                </com.yluo.yluomusic.ui.widget.ShowSongWordView>
-
-                <com.yluo.yluomusic.ui.widget.CircleImageView
-                    android:id="@+id/cimv_rotate_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/zhangliangyin" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <com.yluo.yluomusic.ui.widget.YluoSeekBar
-                        android:layout_width="match_parent"
-                        android:layout_height="15dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingTop="0dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp" >
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="无字碑"
-                                android:textColor="#ff090909"
-                                android:textSize="14dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="张靓颖"
-                                android:textColor="#ff898989"
-                                android:textSize="12dp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true" >
-
-                            <ImageButton
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@null"
-                                android:padding="3dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/skin_kg_ic_playing_bar_play_default" />
-
-                            <ImageButton
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@null"
-                                android:padding="3dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/skin_kg_ic_playing_bar_next_default" />
-
-                            <ImageButton
-                                android:layout_width="42dp"
-                                android:layout_height="42dp"
-                                android:layout_gravity="center_vertical"
-                                android:background="@null"
-                                android:padding="3dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/skin_kg_ic_playing_bar_playlist_queue_default" />
-                        </LinearLayout>
-                    </RelativeLayout>
-                </LinearLayout>
-            </com.yluo.yluomusic.ui.widget.MusicProgressBar>
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
     </com.yluo.yluomusic.ui.widget.SacleSlideMenuLayout>
 
