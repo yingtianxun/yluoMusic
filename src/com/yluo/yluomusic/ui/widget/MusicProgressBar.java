@@ -33,7 +33,6 @@ public class MusicProgressBar extends LinearLayout implements
 	private Rect shaderRect;
 
 	private LinearGradient linearGradient;
-
 	private Rect bkRect;
 	private int totalWidth;
 	private int maxScrollSpan;
