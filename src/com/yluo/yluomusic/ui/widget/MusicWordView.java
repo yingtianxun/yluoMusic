@@ -44,7 +44,6 @@ public class MusicWordView extends View {
 	private Paint paint;
 
 	private Rect mTextRect;
-
 	private Rect mTimeIndicateRect;
 
 	private Bitmap mBmp;
