@@ -80,7 +80,7 @@
     </LinearLayout>
 
     <com.yluo.yluomusic.ui.widget.MusicWordView
-        android:id="@+id/songwords"
+        android:id="@+id/mwv_songwords"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -176,7 +176,7 @@
             android:textSize="12dp" />
 
         <com.yluo.yluomusic.ui.widget.YluoSeekBar
-            android:id="@+id/sb_test"
+            android:id="@+id/sb_song_progress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -227,6 +227,7 @@
                 android:src="@drawable/dje" />
 
             <ImageButton
+                android:id="@+id/ibtn_play_music"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginLeft="20dp"

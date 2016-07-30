@@ -47,20 +47,14 @@ public class MainContentFragment extends BaseFragment {
 
 	private SacleSlideMenuLayout slMainContent;
 
-	
-
 	private HideSlideMenuLayout hlSubMenu;
 
 	private ViewPagerIndicator vpNavIndicator;// viewpager的指示器
 	
 	private RelativeLayout rlNav; //导航栏
 	
-	
-
 	private RotateLayout rotateLayoutMain; // 旋转歌词
 	private View playSongPager;
-	
-	private Handler handler = new Handler() ;
 	
 	@Override
 	protected int getLayoutId() {
@@ -69,7 +63,6 @@ public class MainContentFragment extends BaseFragment {
 
 	@Override
 	protected void initUI() {
-//		getFragmentManager()
 		
 		maincontentPager = findViewById(R.id.vp_maincontent);
 
@@ -99,15 +92,10 @@ public class MainContentFragment extends BaseFragment {
 		
 		// 播放时的旋转按钮
 		
-		
 		// 旋转歌词
 		rotateLayoutMain = findViewById(R.id.rotate_layout_main);
-		
-		// 这个可以使用View来实现,分开逻辑
-		playSongPager = View.inflate(getContext(), R.layout.fragment_playing_song, null);
 		//  这里有问题,等下再修复
-		rotateLayoutMain.setPlayMusicView(playSongPager);
-		
+		rotateLayoutMain.setPlayMusicView(R.layout.fragment_rotate_play_song);
 		rotateLayoutMain.closeMusicViewByNow();
 	}
 	@Override

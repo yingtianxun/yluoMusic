@@ -119,7 +119,7 @@ public class PlaySongBarFragment extends BaseFragment {
 	}
 
 	private void onPlayMusic() {
-		barPresenter.playMusic();
+//		barPresenter.playMusic();
 	}
 
 	private void onNextSong() {
@@ -137,7 +137,6 @@ public class PlaySongBarFragment extends BaseFragment {
 		
 		sVsongword.setSongDuration(songDurationTime);
 	}
-	
 	// 更新播放进度
 	public void onUpdateSongProgress(int curProgress) {
 		if(curProgress == -1) {
@@ -151,8 +150,6 @@ public class PlaySongBarFragment extends BaseFragment {
 		if(wordLines == null) {
 			return;
 		}
-		
-		Log.d(TAG, "---歌词:" + wordLines.size());
 		
 		sVsongword.setSongWords(wordLines);
 	}

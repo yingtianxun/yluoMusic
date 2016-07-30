@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <service android:name="com.yluo.yluomusic.service.PlayMusicService"
-          ></service>
+
+        <service android:name="com.yluo.yluomusic.service.PlayMusicService" >
+        </service>
     </application>
 
 </manifest>
