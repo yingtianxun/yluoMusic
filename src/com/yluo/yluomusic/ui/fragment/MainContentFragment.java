@@ -184,4 +184,10 @@ public class MainContentFragment extends BaseFragment {
 		return view;
 	}
 
+	@Override
+	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

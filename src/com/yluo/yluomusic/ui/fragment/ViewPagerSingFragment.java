@@ -26,6 +26,11 @@ public class ViewPagerSingFragment extends BaseFragment{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

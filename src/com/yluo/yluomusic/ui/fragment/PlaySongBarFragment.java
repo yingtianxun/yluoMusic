@@ -7,16 +7,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 
 import com.yluo.yluomusic.R;
+import com.yluo.yluomusic.aidl.SongManager;
+import com.yluo.yluomusic.presenter.PlayMusicBarPresenter;
 import com.yluo.yluomusic.service.PlayMusicService;
 import com.yluo.yluomusic.ui.fragment.base.BaseFragment;
 
 public class PlaySongBarFragment extends BaseFragment{
 	
 	private static final String TAG = "PlaySongBarFragment";
+	private SongManager songManager;
 	
+	private PlayMusicBarPresenter barPresenter;
 	@Override
 	protected int getLayoutId() {
 		return R.layout.fragment_play_music_bar;
@@ -71,8 +76,16 @@ public class PlaySongBarFragment extends BaseFragment{
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			Log.d(TAG, "---绑定服务---成功");
 			
+			SongManager songManager = SongManager.Stub.asInterface(service);
+	
+			
 		}
 	};
+	@Override
+	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 

@@ -3,7 +3,7 @@ package com.yluo.yluomusic.aidl;
 import  com.yluo.yluomusic.aidl.WordLine;
 
 interface SongManager {
-	 void startPlaySong(String songName);
+	 int startPlaySong(String songName);
 	
 	 void stopPlaySong();
 	

@@ -127,5 +127,11 @@ public class ViewPagerListenFragment extends BaseFragment {
 
 	}
 
+	@Override
+	protected void initConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

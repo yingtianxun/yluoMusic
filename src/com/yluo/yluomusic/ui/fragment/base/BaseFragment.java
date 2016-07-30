@@ -18,6 +18,9 @@ public  abstract class BaseFragment extends Fragment{
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		rootView = createView(inflater);
 		
+		
+		initConfig();
+		
 		initUI();
 		initData();
 		initEvent();
@@ -30,6 +33,7 @@ public  abstract class BaseFragment extends Fragment{
 			
 	}
 	protected abstract int getLayoutId();
+	protected abstract void initConfig(); // ≥ı ºªØ≈‰÷√
 	protected abstract void initUI() ;
 	protected abstract void initData() ;
 	protected abstract void initEvent();
