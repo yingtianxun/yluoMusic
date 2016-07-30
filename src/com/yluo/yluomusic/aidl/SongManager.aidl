@@ -10,6 +10,6 @@ interface SongManager {
 	 void changePlaySongProgress(float progress);
 	
 	 float getSongDuration(String songName);
-	 List<WordLine> getSongWordLine(String songName);
-	
+	 
+	List<WordLine> getSongWordLine(String songName);
 }

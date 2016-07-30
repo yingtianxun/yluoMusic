@@ -24,6 +24,10 @@ public class WordLine implements Parcelable {
 			return new WordLine[size];
 		}
 	};
+	
+	public WordLine() {
+		
+	}
 
 	public WordLine(Parcel source) {
 		words = source.readString();

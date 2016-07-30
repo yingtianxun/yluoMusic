@@ -73,8 +73,6 @@ public class MainContentFragment extends BaseFragment {
 		// 设置歌词
 		sv_songword = findViewById(R.id.sv_songword);
 
-		// 设置歌词文件
-		sv_songword.setSongWords(R.raw.wuzibei);
 
 		// 设置子菜单
 		hlSubMenu = findViewById(R.id.hl_sub_menu);

@@ -1,13 +1,9 @@
 package com.yluo.yluomusic.ui.widget;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import android.annotation.SuppressLint;
+import java.util.List;
+
+import com.yluo.yluomusic.aidl.WordLine;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,15 +15,13 @@ import android.graphics.Rect;
 import android.graphics.Xfermode;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 public class ShowSongWordView extends View {
 
 	private static final String TAG = "ShowSongWordView";
-	private ArrayList<WordLine> wordLines = new ArrayList<WordLine>();
+	private List<WordLine> wordLines;
 	private int mSongDuration;
 	private Paint mPaint;
 	private boolean mCurDrawTextUp = true; // 用来判断画在上面还是下面的
@@ -39,9 +33,9 @@ public class ShowSongWordView extends View {
 	private int mSongWordColor = 0xFF54BEE9;
 	private float mCurLineProgress;
 	private Xfermode mMaskXfermode;
-	
+
 	private static final String NO_WORDS = "暂无歌词...";
-	
+
 	public ShowSongWordView(Context context, AttributeSet attrs,
 			int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -84,50 +78,36 @@ public class ShowSongWordView extends View {
 		return (int) (outMetrics.density * dp + 0.5f);
 
 	}
-
-	// private void getMeasureWidthAndHeight() {
-	// getViewTreeObserver().addOnGlobalLayoutListener(
-	// new OnGlobalLayoutListener() {
-	// @Override
-	// public void onGlobalLayout() {
-	// createWordMask();
-	//
-	// getViewTreeObserver()
-	// .removeOnGlobalLayoutListener(this);
-	// }
-	// });
-	// }
-	
 	/**
 	 * 创建歌词的遮罩
 	 */
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		
-		createWordMask();
-		
 
-    }
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+		createWordMask();
+
+	}
+
 	private void createWordMask() {
 
 		if (mMaskBmp != null || wordLines.size() == 0) {
-	
+
 			return;
 		}
-		
+
 		mMaskBmp = Bitmap.createBitmap(getAvailableWidth(),
 				mTextRect.height() * 2, Bitmap.Config.ARGB_8888);
 
 		Canvas maskCanvas = new Canvas(mMaskBmp);
 
 		maskCanvas.drawColor(mSongWordColor);
-		
+
 	}
-	
+
 	private void calcWordLinesDrawWidth() {
 		for (int i = 0; i < wordLines.size(); i++) {
-			wordLines.get(i).calcWidth();
+			calcWidth(wordLines.get(i));
 		}
 	}
 
@@ -160,7 +140,7 @@ public class ShowSongWordView extends View {
 		int lineIndex = -1;
 		for (int i = curSongingLine; i < wordLines.size(); i++) {
 
-			drawText = wordLines.get(i).words;
+			drawText = wordLines.get(i).getWords();
 
 			if (drawText.length() != 0) {
 				lineIndex = i;
@@ -175,26 +155,29 @@ public class ShowSongWordView extends View {
 		if (wordLines.size() == 0) {
 			drawEmptyWord(canvas); // 提示没歌词
 		} else {
-				drawCurWordLine(canvas);
+			drawCurWordLine(canvas);
 
-				drawNextWordLine(canvas);
-			
+			drawNextWordLine(canvas);
+
 		}
 	}
-	
+
 	private void drawEmptyWord(Canvas canvas) {
-		int drawX = (getAvailableWidth() - mTextRect.width() * NO_WORDS.length()) / 2;
+		int drawX = (getAvailableWidth() - mTextRect.width()
+				* NO_WORDS.length()) / 2;
 		int drawY = (getAvailableHeight() + mTextRect.height()) / 2;
 		canvas.drawText(NO_WORDS, drawX, drawY, mPaint);
 	}
-	
+
 	/**
 	 * 获取减去padding之后的值
+	 * 
 	 * @return
 	 */
 	private int getAvailableWidth() {
 		return getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
 	}
+
 	/**
 	 * 
 	 * @return
@@ -202,7 +185,7 @@ public class ShowSongWordView extends View {
 	private int getAvailableHeight() {
 		return getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
 	}
-	
+
 	private void drawNextWordLine(Canvas canvas) {
 
 		int lineIndex = findNotEmptySongLine(mCurSongingLine + 1);
@@ -226,20 +209,19 @@ public class ShowSongWordView extends View {
 	}
 
 	public void setCurPlayTime(int curTime) {
-		if(wordLines.size() == 0) {
+		if (wordLines.size() == 0) {
 			return;
 		}
-		
-		
+
 		for (int i = 0; i < wordLines.size(); i++) {
 			WordLine wordLine = wordLines.get(i);
-			if (wordLine.time <= curTime
-					&& (wordLine.time + wordLine.duration) >= curTime) {
+			if (wordLine.getTime() <= curTime
+					&& (wordLine.getTime() + wordLine.getDuration()) >= curTime) {
 
 				if (i != mCurSongingLine) {
 					srcollToLine(i);
 				}
-				float hasPlayPrecent = (float) ((curTime - wordLine.time) / wordLine.duration);
+				float hasPlayPrecent = (float) ((curTime - wordLine.getTime()) / wordLine.getDuration());
 
 				setLinePrecent(i, hasPlayPrecent);
 
@@ -251,7 +233,7 @@ public class ShowSongWordView extends View {
 
 	private void srcollToLine(int lineIndex) {
 		WordLine wordLine = wordLines.get(lineIndex);
-		if (wordLine.words.length() == 0) {
+		if (wordLine.getWords().length() == 0) {
 			return;
 		}
 		setCurSongingLine(lineIndex);
@@ -263,7 +245,7 @@ public class ShowSongWordView extends View {
 		if (curPlaySongLine > mCurSongingLine) {
 			return;
 		}
-		mCurLineProgress = (wordLines.get(mCurSongingLine).width + mTextRect
+		mCurLineProgress = (wordLines.get(mCurSongingLine).getWidth() + mTextRect
 				.width()) * precent;
 
 		invalidate();
@@ -278,7 +260,8 @@ public class ShowSongWordView extends View {
 		if (mCurDrawTextUp) {
 			drawX = getPaddingLeft();
 		} else {
-			drawX = getMeasuredWidth() - getPaddingRight() - wordLine.width - mTextRect.width() / 2;
+			drawX = getMeasuredWidth() - getPaddingRight() - wordLine.getWidth()
+					- mTextRect.width() / 2;
 		}
 
 		return drawX;
@@ -289,232 +272,44 @@ public class ShowSongWordView extends View {
 		if (mCurDrawTextUp) {
 			drawY = getPaddingTop() + mTextRect.height() / 3;
 		} else {
-			drawY = getMeasuredHeight() - getPaddingBottom() - mTextRect.height() * 2;
+			drawY = getMeasuredHeight() - getPaddingBottom()
+					- mTextRect.height() * 2;
 		}
 		return drawY;
 	}
-	
-	
 
 	private void drawWorldLine(Canvas canvas, int wordLineIndex,
 			boolean isDrawUp) {
 		if (wordLineIndex != -1) {
 			WordLine wordLine = wordLines.get(wordLineIndex);
 			if (isDrawUp) {
-				canvas.drawText(wordLine.words, getPaddingLeft() +  mTextRect.width() / 2,
+				canvas.drawText(wordLine.getWords(),
+						getPaddingLeft() + mTextRect.width() / 2,
 						getPaddingTop() + mTextRect.height() * 3 / 2, mPaint);
 			} else {
-				canvas.drawText(wordLine.words, getMeasuredWidth() - getPaddingRight()
-						- wordLine.width - mTextRect.width() / 2,
-						getMeasuredHeight() - getPaddingBottom() - mTextRect.height() / 2, mPaint);
+				canvas.drawText(wordLine.getWords(),
+						getMeasuredWidth() - getPaddingRight() - wordLine.getWidth()
+								- mTextRect.width() / 2, getMeasuredHeight()
+								- getPaddingBottom() - mTextRect.height() / 2,
+						mPaint);
 			}
 		}
 	}
-	
-	
 
-	public void setSongWords(int resId) {
-		if (wordLines != null) {
-			wordLines.clear();
-		} else {
-			wordLines = new ArrayList<WordLine>();
-		}
+	public void setSongWords(List<WordLine> wordLines) {
 
-		InputStream inputStream = getResources().openRawResource(resId);
-
-		try {
-			new UtilLrc(inputStream);
-		} catch (IOException e) {
-			Log.d(TAG, "解析歌词失败!");
-			e.printStackTrace();
-		}
-
-		calcWordLinesDrawWidth();
-
+		this.wordLines = wordLines;
+		calcWordLinesDrawWidth(); // 就算歌词的坐标
 		invalidate();
 	}
 
 	public void setSongDuration(int songDuration) {
 		mSongDuration = songDuration;
-
-		calcWordLineDurationTime();// 计算每一行持续的时间是多长
 	}
-
-	private void calcWordLineDurationTime() {
-		
-		if(wordLines.size() == 0) {
-			return;
-		}
-		
-		for (int i = 0; i < wordLines.size() - 1; i++) {
-			WordLine curWordLine = wordLines.get(i);
-			WordLine nextWordLine = wordLines.get(i + 1);
-			curWordLine.duration = (float) (nextWordLine.time - curWordLine.time);
-		}
-		WordLine lastWordLine = wordLines.get(wordLines.size() - 1);
-		lastWordLine.duration = (float) (mSongDuration - lastWordLine.time);
+	public void calcWidth(WordLine wordLine) {
+		mPaint.setTextSize(mSongWordTextSize);
+		Rect temFontpRect = new Rect(); //
+		mPaint.getTextBounds(wordLine.getWords(), 0, wordLine.getWords().length(), temFontpRect);
+		wordLine.setWidth(temFontpRect.width());
 	}
-
-	public class WordLine {
-		public String words;
-		public double time;
-		public float duration;
-		public float width;
-		public float drawX;
-		public float drawY;
-		public String wordLineTime;
-
-		public void setTime(String time) {
-			String str[] = time.split(":|\\.");
-
-			wordLineTime = str[0] + ":" + str[1];
-			// 变成毫秒
-			this.time = (Integer.parseInt(str[0]) * 60
-					+ Integer.parseInt(str[1]) + Integer.parseInt(str[2]) * 0.01) * 1000;
-		}
-
-		public void calcWidth() {
-			mPaint.setTextSize(mSongWordTextSize);
-			Rect temFontpRect = new Rect(); //
-			mPaint.getTextBounds(words, 0, words.length(), temFontpRect);
-			width = temFontpRect.width();
-		}
-	}
-
-	class UtilLrc {
-		private BufferedReader bufferReader = null;
-		private String title = "";
-		private String artist = "";
-		private String album = "";
-		private String lrcMaker = "";
-
-		public UtilLrc(InputStream inputStream) throws IOException {
-			bufferReader = new BufferedReader(new InputStreamReader(
-					inputStream, "utf-8"));
-			readData();
-		}
-
-		private void readData() throws IOException {
-			wordLines.clear();
-			String strLine;
-			while (null != (strLine = bufferReader.readLine())) {
-				if ("".equals(strLine.trim())) {
-					continue;
-				}
-				if (null == title || "".equals(title.trim())) {
-					Pattern pattern = Pattern.compile("\\[ti:(.+?)\\]");
-					Matcher matcher = pattern.matcher(strLine);
-					if (matcher.find()) {
-						title = matcher.group(1);
-						continue;
-					}
-				}
-				if (null == artist || "".equals(artist.trim())) {
-					Pattern pattern = Pattern.compile("\\[ar:(.+?)\\]");
-					Matcher matcher = pattern.matcher(strLine);
-					if (matcher.find()) {
-						artist = matcher.group(1);
-						continue;
-					}
-				}
-				if (null == album || "".equals(album.trim())) {
-					Pattern pattern = Pattern.compile("\\[al:(.+?)\\]");
-					Matcher matcher = pattern.matcher(strLine);
-					if (matcher.find()) {
-						album = matcher.group(1);
-						continue;
-					}
-				}
-				if (null == lrcMaker || "".equals(lrcMaker.trim())) {
-					Pattern pattern = Pattern.compile("\\[by:(.+?)\\]");
-					Matcher matcher = pattern.matcher(strLine);
-					if (matcher.find()) {
-						lrcMaker = matcher.group(1);
-						continue;
-					}
-				}
-				int timeNum = 0;
-				String str[] = strLine.split("\\]");
-				for (int i = 0; i < str.length; ++i) {
-					String str2[] = str[i].split("\\[");
-					str[i] = str2[str2.length - 1];
-					if (isTime(str[i])) {
-						++timeNum;
-					}
-				}
-				// 添加歌词
-				for (int i = 0; i < timeNum; ++i) {
-
-					WordLine wordLine = new WordLine();
-
-					wordLine.setTime(str[i]);
-					if (timeNum < str.length) {
-						wordLine.words = str[str.length - 1];
-					} else {
-						wordLine.words = "";
-					}
-					wordLines.add(wordLine);
-				}
-			}
-			sortLyric();
-		}
-
-		private boolean isTime(String string) {
-			String str[] = string.split(":|\\.");
-			if (3 != str.length) {
-				return false;
-			}
-			try {
-				for (int i = 0; i < str.length; ++i) {
-					Integer.parseInt(str[i]);
-				}
-			} catch (NumberFormatException e) {
-				System.out.println();
-				return false;
-			}
-			return true;
-		}
-
-		private void sortLyric() {
-			for (int i = 0; i < wordLines.size() - 1; ++i) {
-				int index = i;
-				double delta = Double.MAX_VALUE;
-				boolean moveFlag = false;
-				for (int j = i + 1; j < wordLines.size(); ++j) {
-					double sub;
-					if (0 >= (sub = wordLines.get(i).time
-							- wordLines.get(j).time)) {
-						continue;
-					}
-					moveFlag = true;
-					if (sub < delta) {
-						delta = sub;
-						index = j + 1;
-					}
-				}
-				if (moveFlag) {
-					wordLines.add(index, wordLines.get(i));
-					wordLines.remove(i);
-					--i;
-				}
-			}
-		}
-
-		public String getTitle() {
-			return title;
-		}
-
-		public String getArtist() {
-			return artist;
-		}
-
-		public String getAlbum() {
-			return album;
-		}
-
-		public String getLrcMaker() {
-			return lrcMaker;
-		}
-	}
-
 }
