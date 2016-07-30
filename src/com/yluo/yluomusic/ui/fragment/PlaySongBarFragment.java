@@ -1,19 +1,16 @@
 package com.yluo.yluomusic.ui.fragment;
 
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.yluo.yluomusic.R;
-import com.yluo.yluomusic.service.PlayMusiceService;
+import com.yluo.yluomusic.service.PlayMusicService;
 import com.yluo.yluomusic.ui.fragment.base.BaseFragment;
 
 public class PlaySongBarFragment extends BaseFragment{
@@ -30,7 +27,7 @@ public class PlaySongBarFragment extends BaseFragment{
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		// 一开始就绑定服务
-		Intent intent = new Intent(getActivity(),PlayMusiceService.class);
+		Intent intent = new Intent(getActivity(),PlayMusicService.class);
 		
 		getActivity().bindService(
 				intent,

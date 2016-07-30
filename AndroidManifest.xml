@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         
-        <service android:name="com.yluo.yluomusic.service.PlayMusiceService"
+        <service android:name="com.yluo.yluomusic.service.PlayMusicService"
             android:process=":playmusice"></service>
     </application>
 
