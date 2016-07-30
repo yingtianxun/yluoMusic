@@ -28,7 +28,6 @@ public class YluoSeekBar extends SeekBar implements OnSeekBarChangeListener {
 	private float mThumbMinRadius = 4; // 绘制的小的半径
 
 	private float mThumbMaxRadius = 7; // 绘制大的半径
-
 	private float mThumbRadius; // 当前使用的半径
 
 	private int mThumbColor = 0xff51CCFF; // 拖动圆形的颜色
