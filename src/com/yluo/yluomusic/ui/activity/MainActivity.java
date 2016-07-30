@@ -2,8 +2,10 @@ package com.yluo.yluomusic.ui.activity;
 
 
 import com.yluo.yluomusic.R;
+import com.yluo.yluomusic.service.PlayMusiceService;
 import com.yluo.yluomusic.ui.activity.base.BaseActivity;
 
+import android.content.Intent;
 import android.widget.CheckBox;
 
 
@@ -17,7 +19,10 @@ public class MainActivity extends BaseActivity {
 		
 		setContentView(R.layout.activity_layout);
 		
+		Intent intent = new Intent(this,PlayMusiceService.class);
 		
+		// 这部分到时候放在splashActivit里面
+		startService(intent);
 		
 	}
 

@@ -22,4 +22,5 @@ import android.view.WindowManager;
 	}
 	
 	protected abstract void initUI();
+	
 }

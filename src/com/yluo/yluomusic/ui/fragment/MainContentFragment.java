@@ -61,14 +61,14 @@ public class MainContentFragment extends BaseFragment {
 
 	@Override
 	protected void initUI() {
+//		getFragmentManager()
+		
 		maincontentPager = findViewById(R.id.vp_maincontent);
 
 		slMainContent = findViewById(R.id.sl_main_content);
 
-		// 设置做菜单
+		// 设置左菜单
 		slMainContent.setLeftMenuView(R.layout.fragment_slide_menu);
-
-//		slMainContent.setRightMenuView(R.layout.fragment_slide_menu);
 
 		// 设置歌词
 		sv_songword = findViewById(R.id.sv_songword);
@@ -104,25 +104,10 @@ public class MainContentFragment extends BaseFragment {
 		playSongPager = View.inflate(getContext(), R.layout.fragment_playing_song, null);
 		
 		
-		
-		
 		//  这里有问题,等下再修复
-//		handler.postDelayed(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				playSongPager.setPadding(
-//						playSongPager.getPaddingLeft()
-//							,
-//							playSongPager.getPaddingTop() 
-//								+  StatusBarUtil.getStatusBarHeight(getContext()), 
-//								playSongPager.getPaddingRight(),
-//								playSongPager.getPaddingBottom());
-//			}
-//		}, 200);
+
 		
-		
-		
+				
 			
 		rotateLayoutMain.setPlayMusicView(playSongPager);
 		
