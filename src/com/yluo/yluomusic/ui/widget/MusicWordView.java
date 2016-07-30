@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -39,7 +39,7 @@ public class MusicWordView extends View {
 
 	private static final String TAG = "MusicWordView";
 
-	private ArrayList<WordLine> wordLines;
+	private ArrayList<WordLine> wordLines = new ArrayList<MusicWordView.WordLine>();
 
 	private Paint paint;
 
@@ -55,10 +55,10 @@ public class MusicWordView extends View {
 
 	private float mLineHeight; // 行高
 
-	private  float mLinePadding ;
-	
+	private float mLinePadding;
+
 	private int mTopLinePosition; // 在顶部的位置
-	
+
 	private float mLastY; // 记录上一次触摸事件的x,y坐标
 	private float mLastX;
 	private int mTouchSlop;
@@ -73,9 +73,9 @@ public class MusicWordView extends View {
 
 	private Path mTrianglePath;
 
-	private float mPlayBtnRadius ; //绘制的范围
-	
-	private float mPlayBtnTouchRadius ; // 触摸判断的范围
+	private float mPlayBtnRadius; // 绘制的范围
+
+	private float mPlayBtnTouchRadius; // 触摸判断的范围
 
 	private float mOldTextSize;
 
@@ -83,8 +83,8 @@ public class MusicWordView extends View {
 
 	private VelocityTracker mVelocityTracker;
 
-	private LinearGradient leftLinearGradient;
-	private LinearGradient rightLinearGradient;
+	// private LinearGradient leftLinearGradient;
+	// private LinearGradient rightLinearGradient;
 
 	private float mMinFlingVelocity;
 
@@ -95,21 +95,36 @@ public class MusicWordView extends View {
 
 	private float mCurLineProgress = 0;
 
-	private float mTimeIndicatorTextSize ;
+	private float mTimeIndicatorTextSize;
 
-	private float mSongWordTextSize;
+	private float mSongWordTextSize; // 字体大小
 
 	private int mSongDuration = 0;
-	
-	private int mPaintLineWidth ;
-	
+
+	private int mPaintLineWidth; // 行高
+
 	private float mPrecent;
 
 	private boolean mIsMove;
 
 	private int mCurSelecLine;
-	
+	private boolean mIsMoveX = false;
+	private boolean mIsMoveY = false;
 
+	private static final String NO_WORDS = "暂无歌词...";
+	private Rect mNoWordRect;
+
+	private boolean mIsDrawBtn = false;
+	
+	private Runnable mCancleDrawBtnRunable = new Runnable() {
+		
+		@Override
+		public void run() {
+			mIsDrawBtn = false;
+			invalidate();
+		}
+	};
+	
 	public MusicWordView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init();
@@ -126,7 +141,6 @@ public class MusicWordView extends View {
 	}
 
 	private void init() {
-
 		initConfig();
 
 		initPaint();
@@ -141,17 +155,20 @@ public class MusicWordView extends View {
 	}
 
 	private void initConfig() {
-		mLinePadding = dp2px(10);
+
+		setDrawingCacheEnabled(true);
+
+		mLinePadding = dp2px(15);
 		mTimeIndicatorTextSize = dp2px(15);
-		
-		mSongWordTextSize = dp2px(20);
-		
-		mPaintLineWidth = dp2px(2.5f);
-		
+
+		mSongWordTextSize = dp2px(18);
+
+		mPaintLineWidth = dp2px(2.5f); //
+
 		mPlayBtnRadius = dp2px(10);
-		
+
 		mPlayBtnTouchRadius = dp2px(15);
-		
+
 		ViewConfiguration viewConfiguration = ViewConfiguration
 				.get(getContext());
 
@@ -161,6 +178,7 @@ public class MusicWordView extends View {
 
 		mMaxFlingVelocity = viewConfiguration.getScaledMaximumFlingVelocity();
 	}
+
 	private int dp2px(float dp) {
 		WindowManager wm = (WindowManager) getContext().getSystemService(
 				Context.WINDOW_SERVICE);
@@ -171,8 +189,9 @@ public class MusicWordView extends View {
 		return (int) (outMetrics.density * dp + 0.5f);
 
 	}
+
 	private void initPaint() {
-		paint = new Paint();
+		paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 		paint.setAntiAlias(true);
 		paint.setStrokeWidth(mPaintLineWidth);
 		paint.setStyle(Style.FILL);
@@ -192,8 +211,14 @@ public class MusicWordView extends View {
 		paint.getTextBounds("1", 0, 1, mTimeIndicateRect);
 
 		paint.setTextSize(mSongWordTextSize);
+
+		mNoWordRect = new Rect();
+
+		paint.getTextBounds(NO_WORDS, 0, NO_WORDS.length(), mNoWordRect);
+
 	}
 
+	@SuppressLint("NewApi")
 	private void getMeasureWidthAndHeight() {
 		getViewTreeObserver().addOnGlobalLayoutListener(
 				new OnGlobalLayoutListener() {
@@ -205,7 +230,6 @@ public class MusicWordView extends View {
 						// 创建三角形的路径
 						createTrianglePath();
 						// 创建渐近线
-						// createLinearGradient();s
 						// 计算最大滚动范围
 						calcScrollScope();
 						getViewTreeObserver()
@@ -220,17 +244,18 @@ public class MusicWordView extends View {
 		mMinScrollPosition = -getMeasuredHeight() / 2 + mLineHeight / 2;
 		srcollToLine(0);
 	}
+
 	private void createTrianglePath() {
 		mTrianglePath = new Path();
 
-		float topPointX = getMeasuredWidth() - mPlayBtnRadius - mPlayBtnRadius
-				/ 2 - 2;
+		float topPointX = getMeasuredWidth() - mPlayBtnRadius - mPlayBtnRadius 
+				/ 2 - 2 - getPaddingRight();
 		float topPointY = getMeasuredHeight() / 2 - mPlayBtnRadius / 2;
 
-		float bottomPointX = topPointX;
+		float bottomPointX = topPointX ;
 		float bottomPointY = topPointY + mPlayBtnRadius;
 
-		float rightPointX = topPointX + mPlayBtnRadius;
+		float rightPointX = topPointX + mPlayBtnRadius ;
 
 		float rightPointY = getMeasuredHeight() / 2;
 
@@ -241,6 +266,10 @@ public class MusicWordView extends View {
 	}
 
 	private void createWordMask() {
+
+		if (getMeasuredWidth() == 0) {
+			return;
+		}
 
 		mBmp = Bitmap.createBitmap(getMeasuredWidth(), (int) mLineHeight,
 				Bitmap.Config.ARGB_8888);
@@ -264,76 +293,94 @@ public class MusicWordView extends View {
 			invalidate();
 		}
 	}
+
 	// 计算两次触摸事件的移动距离
 	private float calcMoveDistance(MotionEvent event) {
-		
+
 		float disX = event.getX() - mLastX;
 		float disY = event.getY() - mLastY;
-		
+
 		return (float) Math.sqrt(disX * disX + disY * disY);
 	}
-	
+
 	private boolean isClickPlayBtn(MotionEvent event) {
 		float moveDistance = calcMoveDistance(event);
-		
-		if(moveDistance != 0) {
+
+		if (moveDistance != 0) {
 			return false;
 		}
-		
+
 		float disX = getPlayBtnCenterX() - event.getX();
 		float disY = getPlayBtnCenterY() - event.getY();
 		float distance = (float) Math.sqrt(disX * disX + disY * disY);
-		if(distance > mPlayBtnTouchRadius) {
+		if (distance > mPlayBtnTouchRadius) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN: {
 			if (mScroller.isFinished()) {
 				mScroller.abortAnimation();
 			}
+
 			mVelocityTracker.clear();
 			mVelocityTracker.addMovement(event);
 			getParent().requestDisallowInterceptTouchEvent(true);
 			mIsMove = false;
+			mIsMoveX = false;
 		}
 			break;
 		case MotionEvent.ACTION_MOVE: {
-			
+
+			mVelocityTracker.addMovement(event);
+
 			float disY = event.getY() - mLastY;
+
+			float disX = event.getX() - mLastX;
 			// 处理最小滑动的
-			if(!mIsMove) {
-				if(Math.abs(disY) < mTouchSlop) {
+			if (!mIsMove) {
+				if (Math.abs(disY) >= mTouchSlop) {
+					if (disY > 0) {
+						disY -= mTouchSlop;
+					} else {
+						disY += mTouchSlop;
+					}
+					mIsMove = true;
+				} else if (Math.abs(disX) >= mTouchSlop) {
+					mIsMoveX = true;
+					mIsMove = true;
+				} else {
 					break;
 				}
-				// 做滚动补偿
-				if(disY > 0) {
-					disY -= mTouchSlop;
-				} else {
-					disY += mTouchSlop;
-				}
-				mIsMove = true;
-			} 
-			mVelocityTracker.addMovement(event);
+			}
+			if (mIsMoveX) {
+				getParent().requestDisallowInterceptTouchEvent(false);
+			}
+
 			mScorllDisY -= disY;
+			
+			removeCallbacks(mCancleDrawBtnRunable);
+			mIsDrawBtn = true; // 画按钮出来
 			invalidate();
 		}
 			break;
 		case MotionEvent.ACTION_UP: {
 			// 判断是否点击圆形了
-			if(isClickPlayBtn(event)) {
-				
+			if (isClickPlayBtn(event)) {
+
 				Log.d(TAG, "点击圆形了--------");
 			} else {
 				// 滚动事件
-				mVelocityTracker.computeCurrentVelocity(1000, mMaxFlingVelocity);
-				
+				mVelocityTracker
+						.computeCurrentVelocity(1000, mMaxFlingVelocity);
+
 				float curYVelocity = mVelocityTracker.getYVelocity();
-				
+
 				if (Math.abs(curYVelocity) < mMinFlingVelocity) {
 					scrollViewBack(); // 超出范围滚回来的
 				} else {
@@ -341,6 +388,7 @@ public class MusicWordView extends View {
 				}
 			}
 			
+			postDelayed(mCancleDrawBtnRunable, 2000);
 		}
 			break;
 		default:
@@ -352,12 +400,16 @@ public class MusicWordView extends View {
 	}
 
 	public void srcollToLine(int lineIndex) {
+
+		if (wordLines.size() == 0) {
+			return;
+		}
+
 		WordLine wordLine = wordLines.get(lineIndex);
 		if (wordLine.words.length() == 0) {
 			return;
 		}
 
-		
 		// 判断是否超出行数
 		if (lineIndex < 0 || lineIndex >= wordLines.size()) {
 			return;
@@ -365,9 +417,8 @@ public class MusicWordView extends View {
 		int disY = (int) ((-(getMeasuredHeight() / 2 - lineIndex * mLineHeight - mLineHeight / 2)) - mScorllDisY);
 
 		mCurSongingLine = lineIndex;
-		
+
 		mCurSelecLine = mCurSongingLine;
-		
 
 		mCurLineProgress = (wordLines.get(mCurSongingLine).width + mTextRect
 				.width()) * mPrecent;
@@ -387,7 +438,8 @@ public class MusicWordView extends View {
 
 	private void filingView(float curYVelocity) {
 		mScroller.fling(0, (int) mScorllDisY, 0, -(int) curYVelocity, 0, 0,
-				(int) mMinScrollPosition, (int) mMaxScrollPosition, 0, dp2px(75));
+				(int) mMinScrollPosition, (int) mMaxScrollPosition, 0,
+				dp2px(75));
 		invalidate();
 	}
 
@@ -433,43 +485,80 @@ public class MusicWordView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		
-		// drawIndicateLine(canvas);
-		drawWordLines(canvas);
 
-		drawPlayBtn(canvas);
+		if (wordLines.size() == 0) {
+			drawEmptyWord(canvas); // 提示没歌词
+		} else {
+			if (mIsDrawBtn) {
+				drawIndicateLine(canvas);
+				drawPlayBtn(canvas);
+				drawCurLineTime(canvas);
+			}
+			drawWordLines(canvas);
 
-		drawCurLineTime(canvas);
+		}
+	}
+
+	private void drawEmptyWord(Canvas canvas) {
+
+		int drawX = (getAvailableWidth() - mNoWordRect.width()) / 2;
+		int drawY = (getAvailableHeight() + mNoWordRect.height()) / 2;
+		canvas.drawText(NO_WORDS, drawX, drawY, paint);
+	}
+
+	/**
+	 * 获取减去padding之后的值
+	 * 
+	 * @return
+	 */
+	private int getAvailableWidth() {
+		return getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+	}
+
+	/**
+	 * @return
+	 */
+	private int getAvailableHeight() {
+		return getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
 	}
 
 	private void drawIndicateLine(Canvas canvas) {
 		// 画左线
-		savePaint();
-		// paint.setShader(leftLinearGradient);
-		paint.setColor(Color.WHITE);
+		paint.setColor(0x44ffffff);
 		paint.setStrokeWidth(1);
-		canvas.drawLine(mTimeIndicateRect.width() * 10,
-				getMeasuredHeight() / 2 - 1, getMeasuredWidth(),
+		paint.setAlpha(80);
+		canvas.drawLine(mTimeIndicateRect.width() * 10 + getPaddingLeft(),
+				getMeasuredHeight() / 2 - 1, 
+				getMeasuredWidth() / 2 - mPlayBtnRadius * 3 - getPaddingRight(),
 				getMeasuredHeight() / 2 - 1, paint);
-		// paint.setShader(null);
-
-		restorePaint();
+		
+		// 画右线
+		
+		canvas.drawLine(
+				getMeasuredWidth() / 2 + mPlayBtnRadius * 3 - getPaddingRight(),
+				getMeasuredHeight() / 2 - 1, 
+				getMeasuredWidth()  - mPlayBtnRadius * 3 - getPaddingRight(),
+				getMeasuredHeight() / 2 - 1, paint);
+		
+		
+		paint.setAlpha(255);
 	}
+
 	private void drawWordLines(Canvas canvas) {
 		getTopLinePosition(); // 计算顶部位置,从第几行开始画
-		
+
 		float curShowHeight = 0;
 		for (int i = mTopLinePosition; i < wordLines.size(); i++) {
 
 			curShowHeight = i * mLineHeight - mScorllDisY;
 
 			WordLine wordLine = wordLines.get(i);
-			 changeLineByScroll((int)curShowHeight,i); //这里滚着滚动换色的
-			 
+			changeLineByScroll((int) curShowHeight, i); // 这里滚着滚动换色的
+
 			if (i == mCurSongingLine) {
 				drawMaskWordLine(canvas, wordLine);
 			} else {
-				drawNormalWordLine(canvas, wordLine,i);
+				drawNormalWordLine(canvas, wordLine, i);
 			}
 			// 这个判断的就不要画多余的
 			if (curShowHeight > getMeasuredHeight()) {
@@ -481,9 +570,9 @@ public class MusicWordView extends View {
 	private void changeLineByScroll(int curShowHeight, int lineIndex) {
 		if (curShowHeight <= getMeasuredHeight() / 2
 				&& curShowHeight + mLineHeight >= getMeasuredHeight() / 2) {
-			
+
 			mCurSelecLine = lineIndex;
-			
+
 		} else if (mScorllDisY <= mMinScrollPosition) {
 			mCurSelecLine = 0;
 		} else if (mScorllDisY >= mMaxScrollPosition) {
@@ -497,7 +586,7 @@ public class MusicWordView extends View {
 		int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null,
 				Canvas.ALL_SAVE_FLAG);
 
-		drawNormalWordLine(canvas, wordLine,mCurSongingLine); // 画普通行
+		drawNormalWordLine(canvas, wordLine, mCurSongingLine); // 画普通行
 
 		Xfermode oldXferMode = paint.getXfermode();
 
@@ -522,15 +611,16 @@ public class MusicWordView extends View {
 		return wordLine.drawY - mScorllDisY;
 	}
 
-	private void drawNormalWordLine(Canvas canvas, WordLine wordLine,int lineIndex) {
-		
+	private void drawNormalWordLine(Canvas canvas, WordLine wordLine,
+			int lineIndex) {
+
 		int oldAlpha = paint.getAlpha();
-		
+
 		paint.setAlpha((int) ((1 - (Math.abs(lineIndex - mCurSelecLine)) * 0.1f) * 255));
-		
+
 		canvas.drawText(wordLine.words, wordLine.drawX,
 				calcDrawLineY(wordLine), paint);
-		
+
 		paint.setAlpha(oldAlpha);
 	}
 
@@ -549,21 +639,28 @@ public class MusicWordView extends View {
 	}
 
 	private void drawCurLineTime(Canvas canvas) {
+
+		if (wordLines.size() == 0) {
+
+			return;
+		}
+
 		savePaint();
 		paint.setColor(songWordColor);
 		paint.setTextSize(mTimeIndicatorTextSize);
 
 		WordLine wordLine = wordLines.get(mCurSongingLine);
 
-		canvas.drawText(wordLine.wordLineTime, 0,
+		canvas.drawText(wordLine.wordLineTime, 0 + getPaddingLeft(),
 				(getMeasuredHeight() + mTimeIndicateRect.height()) / 2, paint);
 
 		restorePaint();
 	}
-	
+
 	private float getPlayBtnCenterX() {
-		return getMeasuredWidth() - mPlayBtnRadius - mPaintLineWidth;
+		return getMeasuredWidth() - mPlayBtnRadius - mPaintLineWidth - getPaddingRight();
 	}
+
 	private float getPlayBtnCenterY() {
 		return getMeasuredHeight() / 2;
 	}
@@ -577,7 +674,8 @@ public class MusicWordView extends View {
 		paint.setStrokeWidth(2);
 
 		// 画外圈的圆形
-		canvas.drawCircle(getPlayBtnCenterX(),getPlayBtnCenterY(), mPlayBtnRadius, paint);
+		canvas.drawCircle(getPlayBtnCenterX(), getPlayBtnCenterY(),
+				mPlayBtnRadius, paint);
 
 		// 画圈内的三角形
 		paint.setStyle(Style.FILL);
@@ -592,11 +690,11 @@ public class MusicWordView extends View {
 	 */
 	public void setSongDuration(int songDuration) {
 		mSongDuration = songDuration;
-		
+
 		calcWordLineDurationTime();// 计算每一行持续的时间是多长
 	}
 
-	public void setLinePrecent(int curPlaySongLine,float precent) {
+	public void setLinePrecent(int curPlaySongLine, float precent) {
 		if (curPlaySongLine > mCurSongingLine) {
 			return;
 		}
@@ -621,7 +719,7 @@ public class MusicWordView extends View {
 				}
 				float hasPlayPrecent = (float) ((curTime - wordLine.time) / wordLine.duration);
 
-				setLinePrecent(i,hasPlayPrecent);
+				setLinePrecent(i, hasPlayPrecent);
 
 				break;
 			}
@@ -630,7 +728,7 @@ public class MusicWordView extends View {
 	}
 
 	public void setSongWordsPath(String path) {
-		
+
 	}
 
 	public void setSongWords(int resId) {
@@ -648,7 +746,7 @@ public class MusicWordView extends View {
 			Log.d(TAG, "解析歌词失败!");
 			e.printStackTrace();
 		}
-//		
+		//
 		calcScrollScope();
 
 		invalidate();
@@ -661,9 +759,9 @@ public class MusicWordView extends View {
 			// 计算持续时间// 最后一个就在后面计算
 			curWordLine.duration = (float) (nextWordLine.time - curWordLine.time);
 		}
-		
+
 		WordLine lastWordLine = wordLines.get(wordLines.size() - 1);
-		lastWordLine.duration =  (float) (mSongDuration - lastWordLine.time);
+		lastWordLine.duration = (float) (mSongDuration - lastWordLine.time);
 	}
 
 	public class WordLine {

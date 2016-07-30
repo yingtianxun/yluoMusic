@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true" 
+        android:drawable="@drawable/playing_song_tag_pressed_bk"/>
+  <item 
+        android:drawable="@drawable/playing_song_tag_normal_bk"/>
+</selector>

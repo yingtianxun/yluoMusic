@@ -33,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:text="歌手" />
         </LinearLayout>
-
    			 
             <ImageButton
                 android:id="@+id/ib_songlist"

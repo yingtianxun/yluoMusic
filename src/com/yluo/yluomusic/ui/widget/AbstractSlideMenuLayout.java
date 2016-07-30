@@ -16,6 +16,14 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Scroller;
+import android.widget.Toast;
+
+
+/**
+ * curMinScrollSpan = 0; 这个问题需要注意
+ * @author 37243
+ *
+ */
 
 public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
@@ -143,6 +151,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
+//		Log.d(TAG, "-----------------layout-----------");
 		layOutChildren(changed, left, top, right, bottom);
 	}
 
@@ -150,33 +159,41 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 			int right, int bottom);
 
 	private void resetStatus() {
+
 		eventUtil.resetMoveDirection();
+		eventUtil.resetMoveStatus();
 		velocityTracker.clear();
 		canOpenLeft = true;
 		canOpenRight = true;
 		mScroller.abortAnimation();
 	}
-
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
+				
+//		Log.d(TAG, "---------action-----:" + event.getAction());
 		// 没有左右菜单的时候 什么都不拦截
 		if (!hasLeftMenu() && !hasRightMenu()) {
 			return false;
 		}
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			getParent().requestDisallowInterceptTouchEvent(true);
+//			Log.d(TAG, "---------1111touchDOWN-----");
 			if (isForeceIntercept(event)) {
+//				Log.d(TAG, "---------强制关闭中-----");
 				mInterceptFlag = INTERCE;
 			} else {
+//				Log.d(TAG, "---------不强制-----");
 				mInterceptFlag = NOTINTERCE;
 				curMinScrollSpan = 0;
 				curMaxScrollSpan = mMaxScrollSpan;
 			}
 			resetStatus();
 			velocityTracker.addMovement(event);
+			eventUtil.recordEventXY(event);
 			break;
 		case MotionEvent.ACTION_MOVE:
-
+//			Log.d(TAG, "---------2222touchMOVE-----");
 			velocityTracker.addMovement(event);
 			if (mInterceptFlag != NOTINTERCE) {
 				break;
@@ -191,36 +208,42 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 				mInterceptFlag = DONINTERCE;// 不拦截
 				break;
 			}
-
-			if (isMenuRightOpen() && !eventUtil.isMoveRight(event)) {
+			if (isMenuRightOpen() && eventUtil.isMoveLeft(event)) {
 				mInterceptFlag = DONINTERCE;// 不拦截
 				break;
 			}
-
 			mInterceptFlag = INTERCE;
-
 			break;
+//		case MotionEvent.ACTION_UP:
+////			Log.d(TAG, "---------弹起--------");
+//			mInterceptFlag = INTERCE;
+//			
+////			Log.d(TAG, "---------ppp--------:" + isIntercept());
+//			break;
 		default:
 			break;
 		}
-		eventUtil.recordEventXY(event);
+//		
+//		Log.d(TAG, "---------ppp--------:" + isIntercept());
 		return isIntercept();
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+//			Log.d(TAG, "---------333touchDOWN-----");
 			handleTouchDownEvent(event);
 			break;
 		case MotionEvent.ACTION_MOVE:
 			handleTouchMoveEvent(event);
 			break;
 		case MotionEvent.ACTION_UP:
+//			Log.d(TAG, "---------5555touchUP-----");
 			handleTouchUpEvent(event);
 			break;
 		case MotionEvent.ACTION_CANCEL:
+//			Log.d(TAG, "---------666touchCANCLE-----");
 			mInterceptFlag = NOTINTERCE; // 恢复拦截状态
 			break;
 		default:
@@ -232,6 +255,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 	private void forceScrollerStop() {
 		if (isWaitingCallStatusListener) {
+//			Log.d(TAG, "强制关闭菜单-----");
 			mScroller.abortAnimation();
 			onScroll(mScroller.getFinalX());
 			judgeOpenOrClose();
@@ -249,7 +273,14 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 			// 右菜单打开点击右边部分不显示
 		} else if (isMenuRightOpen()
 				&& event.getX() <= (mContentWidth - getMenuWidth())) {
-			curMinScrollSpan = 0;
+			
+			if(hasLeftMenu()) {
+				curMinScrollSpan = (int) getMenuWidth();
+			} else {
+				curMinScrollSpan = 0;
+			}
+			
+			
 			return true;
 		}
 		return false;
@@ -280,15 +311,14 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 			int heightMeasureSpec);
 
 	private void handleTouchDownEvent(MotionEvent event) {
-		eventUtil.resetMoveStatus();
-		eventUtil.resetMoveDirection();
+	
 		canOpenLeft = true;
 		canOpenRight = true;
 		onTouchDown(event);
 	}
 
 	private void handleTouchMoveEvent(MotionEvent event) {
-
+//		Log.d(TAG, "---------移动的--------------");
 		eventUtil.calcMoveDirection(event);
 		// 上下移动的话就不做和任何处理
 
@@ -297,7 +327,10 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 		}
 		// 获取补偿的后的滑动距离
 		float disX = eventUtil.getRealDisX(event);
-
+		
+//		Log.d(TAG, "slideMenu---disX:" + disX);
+//		Log.d(TAG, "---disX:" + disX);
+	
 		if (disX == 0) { // 如果为0的话那就跳过了
 			return;
 		}
@@ -313,13 +346,11 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 		if (isMenuClose()) {
 			if (canOpenLeft && canOpenRight) {
 				if ((getScrollX() + disX) < getCloseMenuPosition()) {
-					
 					canOpenRight = false;
 					curMaxScrollSpan = (int) getMenuWidth();
-					
 				} else if ((getScrollX() + disX) > getCloseMenuPosition()) {
 					canOpenLeft = false;
-					curMinScrollSpan = 0;
+					curMinScrollSpan = (int) getMenuWidth();
 				}
 			}
 		}
@@ -345,7 +376,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 		if (eventUtil.isMeetMinFlingVelocity(curVelocity)) {
 			
-			Log.d(TAG, "-------滑动速度达到最大值");
+//			Log.d(TAG, "-------滑动速度达到最大值");
 			
 			closeOrOpenMenu(closeOrOpenMenuByVelocity(curVelocity > 0),
 					curVelocity);
@@ -407,18 +438,19 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 	protected int getLeftOpenMenuPosition() {
 		
-		Log.d(TAG, "---curMinScrollSpan:" + curMinScrollSpan);
+//		Log.d(TAG, "---curMinScrollSpan:" + curMinScrollSpan);
 		return curMinScrollSpan;
 	}
 
 	protected int getRightOpenMenuPosition() {
 		
-		Log.d(TAG, "---curMaxScrollSpan:" + curMaxScrollSpan);
+//		Log.d(TAG, "---curMaxScrollSpan:" + curMaxScrollSpan);
 		
 		return curMaxScrollSpan;
 	}
 
 	protected int getCloseMenuPosition() {
+//		Log.d(TAG, msg);  这里就是导致bug的原因了
 		if (hasLeftMenu()) {
 			return (int) (mMenuWidthFactor * mContentWidth);
 		} else {
@@ -453,7 +485,7 @@ public abstract class AbstractSlideMenuLayout extends ViewGroup {
 
 	private void startScrollX(int startX, int endY) {
 		
-		Log.d(TAG, "startX:" + startX + ",endY:" + endY);
+//		Log.d(TAG, "startX:" + startX + ",endY:" + endY);
 		
 		isWaitingCallStatusListener = true; // 标记监听的
 		mScroller.startScroll(startX, 0, endY - startX, 0, mScrollDuration);

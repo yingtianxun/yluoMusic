@@ -1,176 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yluo="http://schemas.android.com/apk/res/com.yluo.yluomusic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/vp_listen_background"
+      android:background="@android:color/holo_blue_dark"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <!-- 我喜欢 -->
-
-        <Button
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/vp_listen_love_icon"
-            android:gravity="center"
-            android:text="我喜欢"
-            android:textColor="#ffffff" />
-        <!-- 歌单 -->
-
-        <Button
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/vp_listen_song_list_icon"
-            android:gravity="center"
-            android:text="歌单"
-            android:textColor="#ffffff" />
-        <!-- 下载 -->
-
-        <Button
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/vp_listen_download_icon"
-            android:gravity="center"
-            android:text="下载"
-            android:textColor="#ffffff" />
-        <!-- 最近 -->
-
-        <Button
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/vp_listen_download_icon"
-            android:gravity="center"
-            android:text="最近"
-            android:textColor="#ffffff" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_blue_dark"
+            android:orientation="vertical" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/vp_listen_phone_icon" />
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_margin="0dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/skin_kg_navigation_comm_top_bg" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:text="本地音乐"
-                android:textColor="#ffffff" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/vp_listen_local_music_icon" />
+                <!-- 海豚模糊背景 -->
+
+                <com.yluo.yluomusic.ui.widget.YluoClipImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="161dp"
+                    android:src="@drawable/skin_kg_navigation_local_entry_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="161dp"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:paddingTop="9dp" >
+
+                            <!-- 我喜欢 -->
+
+                            <LinearLayout
+                                android:id="@+id/ll_i_love"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_i_love"
+                                    style="@style/main_content_listen_yluo_textview"
+                                    android:drawableTop="@drawable/skin_kg_navigation_fav_normal"
+                                    android:text="我喜欢"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_fav_pressed" />
+                            </LinearLayout>
+
+                            <!-- 歌单 -->
+
+                            <LinearLayout
+                                android:id="@+id/ll_song_list"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_song_list"
+                                    style="@style/main_content_listen_yluo_textview"
+                                    android:drawableTop="@drawable/skin_kg_navigation_playlist_normal"
+                                    android:text="歌单"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_playlist_pressed" />
+                            </LinearLayout>
+
+                            <!-- 下载 -->
+
+                            <LinearLayout
+                                android:id="@+id/ll_download"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_download"
+                                    style="@style/main_content_listen_yluo_textview"
+                                    android:drawableTop="@drawable/skin_kg_navigation_download_normal"
+                                    android:text="下载"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_download_pressed" />
+                            </LinearLayout>
+
+                            <!-- 最近 -->
+
+                            <LinearLayout
+                                android:id="@+id/ll_recent"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_recent"
+                                    style="@style/main_content_listen_yluo_textview"
+                                    android:drawableTop="@drawable/skin_kg_navigation_recent_normal"
+                                    android:text="最近"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_recent_pressed" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#22ffffff" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:clickable="true" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="24dp" >
+
+                                <ImageView
+                                    android:layout_width="15dp"
+                                    android:layout_height="25dp"
+                                    android:background="@android:color/transparent"
+                                    android:src="@drawable/skin_kg_navigation_local_music_normal" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="16dp"
+                                    android:gravity="center"
+                                    android:text="本地音乐"
+                                    android:textColor="#ffffff" />
+
+                                <ImageView
+                                    android:layout_width="16dp"
+                                    android:layout_height="16dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/skin_kg_navigation_random_normal" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="18dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="24dp"
+                                android:drawablePadding="10dp"
+                                android:drawableRight="@drawable/avq"
+                                android:gravity="center_vertical"
+                                android:text="共0首"
+                                android:textColor="#66ffffff"
+                                android:textSize="13dp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="10dp" >
+
+                            <LinearLayout
+                                android:id="@+id/ll_music_library"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_music_library"
+                                    style="@style/main_content_listen_mainbutton_textview"
+                                    android:drawableTop="@drawable/vp_listen_song_library_icon"
+                                    android:text="乐酷"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_yueku_pressed" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_radio"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_radio"
+                                    style="@style/main_content_listen_mainbutton_textview"
+                                    android:drawableTop="@drawable/vp_listen_radio_icon"
+                                    android:text="电台"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_channel_pressed" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_coolgroup"
+                                style="@style/main_content_listen_ll" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    android:id="@+id/tx_coolgroup"
+                                    style="@style/main_content_listen_mainbutton_textview"
+                                    android:drawableTop="@drawable/vp_listen_cool_group_icon"
+                                    android:text="酷群"
+                                    yluo:press_drawable="@drawable/skin_kg_navigation_kuchat_pressed" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FFEEEEEE" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp" >
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_live"
+                                    android:drawableLeft="@drawable/vp_listen_tool"
+                                    android:text="工具" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true" >
+
+                                    <com.yluo.yluomusic.ui.widget.YluoChangeColorImageView
+                                        android:layout_width="41dp"
+                                        android:layout_height="41dp"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:src="@drawable/e59"
+                                        android:visibility="invisible" />
+
+                                    <com.yluo.yluomusic.ui.widget.YluoChangeColorImageView
+                                        android:layout_width="41dp"
+                                        android:layout_height="41dp"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:src="@drawable/e5c"
+                                        android:visibility="invisible" />
+
+                                    <com.yluo.yluomusic.ui.widget.YluoChangeColorImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:rotation="90"
+                                        android:src="@drawable/dxz" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e5b"
+                                    android:text="跑步" />
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e5d"
+                                    android:text="传歌" />
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e5c"
+                                    android:text="扫描" />
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e59"
+                                    android:text="挑歌" />
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e5a"
+                                    android:text="铃声" />
+
+                                <com.yluo.yluomusic.ui.widget.YluoTextView
+                                    style="@style/main_content_listen_yluotextview"
+                                    android:drawableTop="@drawable/e5_"
+                                    android:text="识曲" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#FFEEEEEE" />
+                        <!-- 游戏 -->
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp" >
+
+                            <com.yluo.yluomusic.ui.widget.YluoTextView
+                                style="@style/main_content_listen_live"
+                                android:drawableLeft="@drawable/vp_listen_game"
+                                android:text="游戏" />
+                        </RelativeLayout>
+                        <!-- 推广 -->
+
+                        <View
+                          
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#FFEEEEEE" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp" >
+
+                            <com.yluo.yluomusic.ui.widget.YluoTextView
+                                style="@style/main_content_listen_live"
+                                android:drawableLeft="@drawable/skin_kg_navigation_spread"
+                                android:text="推广" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="免费领9元话费+包月VIP，送完即止"
+                                android:textColor="#ff959595" />
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginLeft="13dp"
+                            android:layout_marginRight="13dp"
+                            android:layout_marginTop="10dp"
+                            android:background="#FFEEEEEE" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/vp_listen_total_music_icon"
-            android:gravity="center"
-            android:text="共0首"
-            android:textColor="#ffffff" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
-
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/vp_listen_song_library_icon"
-            android:text="乐库"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/vp_listen_radio_icon"
-            android:text="电台"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:drawableTop="@drawable/vp_listen_cool_group_icon"
-            android:text="酷群"
-            android:textColor="#ffffff" />
-    </LinearLayout>
-    <!-- 工具 -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" >
-
-        <TextView
-            style="@style/main_content_listen_live"
-            android:drawableLeft="@drawable/vp_listen_tool"
-            android:text="工具"
-/>
-    </RelativeLayout>
-    <!-- 游戏 -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            style="@style/main_content_listen_live"
-            android:drawableLeft="@drawable/vp_listen_game"
-            android:text="游戏"
-             />
-    </RelativeLayout>
-    <!-- 推广 -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            style="@style/main_content_listen_live"
-            android:drawableLeft="@drawable/vp_listen_promote"
-            android:text="推广"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="免费领9元话费+包月VIP，送完即止"
-            android:textColor="#55ffffff" />
-    </RelativeLayout>
-
+    </ScrollView>
 
 </LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="YluoTextView">
+        <attr name="pressed_textcolor" format="color" />
+        <attr name="drawable_width" format="dimension" />
+        <attr name="drawable_height" format="dimension" />
+        <attr name="press_drawable" format="integer" />
+        <attr name="create_presseddawable" format="boolean" />
+        <attr name="use_yluo" format="boolean" />
+        <attr name="create_drawable" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="YluoSeekBar">
+        <attr name="show_time_indicator" format="boolean" />
+        <attr name="thumb_color" format="color" />
+        <attr name="determin_color" format="color" />
+        <attr name="indetermin_color" format="color" />
+    </declare-styleable>
+
+</resources>

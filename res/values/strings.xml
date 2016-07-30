@@ -7,7 +7,9 @@
     
     <string name="slide_menu_login_register_text">登录/注册>>></string>
 	<string name="slide_menu_message_text">消息中心</string>
+	<string name="slide_menu_my_friend_text">我的好友</string>
 	<string name="slide_menu_member_text">会员中心</string>
+	<string name="slide_menu_cell_phone_traffic">流量包月</string>
 	<string name="slide_menu_timeclose_text">定时关闭</string>
 	<string name="slide_menu_sound_text">蝰蛇音效</string>
 	<string name="slide_menu_listen_song_text">听歌识曲</string>

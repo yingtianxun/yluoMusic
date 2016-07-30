@@ -10,6 +10,7 @@ import android.graphics.RadialGradient;
 import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.view.NestedScrollingChild;
@@ -20,6 +21,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -27,7 +29,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
 // ²Î¿¼¿í¸ßÊÇ70dp
-@SuppressLint("DrawAllocation")
+@SuppressLint({ "DrawAllocation", "NewApi" })
 public class CircleImageView extends ImageView implements NestedScrollingChild{
 	private static final String TAG = "CircleImageView";
 	private Bitmap mDstBmp;
@@ -40,6 +42,8 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 	private float mLastY;
 	private int[] mConsumed = new int[2];
 	private NestedScrollingChildHelper mChildHelper;
+	private OnClickListener mClickListener;
+	private boolean mIsMove = false;
 
 	public CircleImageView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -63,6 +67,8 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 
 		mChildHelper = new NestedScrollingChildHelper(this);
 		setNestedScrollingEnabled(true);
+		
+		setClickable(true);
 	}
 
 	private void initConfig() {
@@ -79,7 +85,7 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 
 						changeBmp();
 						createRotation();
-						startRotation();
+//						startRotation();
 						getViewTreeObserver()
 								.removeOnGlobalLayoutListener(this);
 					}
@@ -130,12 +136,18 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 	private void setDrawable(Canvas canvas) {
 		int layerid = canvas.saveLayer(0, 0, getMeasuredWidth(),
 				getMeasuredWidth(), paint, Canvas.ALL_SAVE_FLAG);
+		
 		canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2,
 				getMeasuredWidth() / 2 - mExacteWidth, paint);
 
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		
 		srcBitmap = ((BitmapDrawable) getDrawable()).getBitmap();
-		canvas.drawBitmap(srcBitmap, 0, 0, paint);
+		
+		canvas.drawBitmap(srcBitmap,new Rect(0, 0
+				,srcBitmap.getWidth(),srcBitmap.getHeight()),
+				new Rect(0,0,getMeasuredWidth(),getMeasuredHeight()), paint);
+		
 		paint.setXfermode(null);
 
 		paint.setStyle(Style.STROKE);
@@ -150,7 +162,7 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 
 	private void createShader(Canvas canvas) {
 		RadialGradient gradient = new RadialGradient(getMeasuredWidth() / 2,
-				getMeasuredHeight() / 2, getMeasuredWidth() / 2, 0xff000000,
+				getMeasuredHeight() / 2, getMeasuredWidth() / 3, 0xff000000,
 				Color.TRANSPARENT, TileMode.CLAMP);
 
 		paint.setShader(gradient);
@@ -175,18 +187,26 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			mIsMove = false;
 			getParent().requestDisallowInterceptTouchEvent(true);
 			startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL);
 			break;
 
 		case MotionEvent.ACTION_MOVE:
 			int disX = (int) (mLastX - event.getRawX());
+			if(disX != 0) {
+				mIsMove = true;
+			}
 			dispatchNestedPreScroll(disX, 0, mConsumed, null);
 			dispatchNestedScroll(0, 0, disX - mConsumed[0], 0, null);
 			break;
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
 			stopNestedScroll();
+			
+			if(!mIsMove && mClickListener != null) {
+				mClickListener.onClick(this);
+			}
 			break;
 		default:
 			break;
@@ -196,7 +216,12 @@ public class CircleImageView extends ImageView implements NestedScrollingChild{
 		mLastY = event.getRawY();
 		return true;
 	}
-
+	@Override
+	public void setOnClickListener(OnClickListener l) {
+		this.mClickListener = l;
+	}
+	
+	
 	@Override
 	public void setNestedScrollingEnabled(boolean enabled) {
 		mChildHelper.setNestedScrollingEnabled(enabled);

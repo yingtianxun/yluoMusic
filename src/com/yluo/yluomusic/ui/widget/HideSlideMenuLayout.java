@@ -415,9 +415,10 @@ public class HideSlideMenuLayout extends ViewGroup {
 				mInterceptStatus = INTERCEP_NO_DECIDE;
 				mCurMoveView = CONTENT;
 			}
-
+//			eventUtil.resetMoveStatus();
+//			eventUtil.resetMoveDirection();
 			eventUtil.resetMoveDirection();
-
+			eventUtil.resetMoveStatus();
 			//
 
 			break;
@@ -463,11 +464,11 @@ public class HideSlideMenuLayout extends ViewGroup {
 		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			
-			
-			
-			eventUtil.resetMoveStatus();
-			eventUtil.resetMoveDirection();
+//			
+//			
+//			
+//			eventUtil.resetMoveStatus();
+//			eventUtil.resetMoveDirection();
 			break;
 		case MotionEvent.ACTION_MOVE:
 			handleTouchMoveEvent(event);

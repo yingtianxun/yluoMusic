@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -26,7 +27,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 public class ShowSongWordView extends View {
 
 	private static final String TAG = "ShowSongWordView";
-	private ArrayList<WordLine> wordLines;
+	private ArrayList<WordLine> wordLines = new ArrayList<WordLine>();
 	private int mSongDuration;
 	private Paint mPaint;
 	private boolean mCurDrawTextUp = true; // 用来判断画在上面还是下面的
@@ -39,7 +40,9 @@ public class ShowSongWordView extends View {
 	private int mSongWordColor = 0xFF54BEE9;
 	private float mCurLineProgress;
 	private Xfermode mMaskXfermode;
-
+	
+	private static final String NO_WORDS = "暂无歌词...";
+	
 	public ShowSongWordView(Context context, AttributeSet attrs,
 			int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
@@ -62,13 +65,13 @@ public class ShowSongWordView extends View {
 
 		createPaint();
 		calcTextHeight();
-		getMeasureWidthAndHeight();
+		// getMeasureWidthAndHeight();
 
 		createXfermode();
 	}
 
 	private void initConfig() {
-		mSongWordTextSize = dp2px(16);
+		mSongWordTextSize = dp2px(14);
 
 	}
 
@@ -83,29 +86,46 @@ public class ShowSongWordView extends View {
 
 	}
 
-	private void getMeasureWidthAndHeight() {
-		getViewTreeObserver().addOnGlobalLayoutListener(
-				new OnGlobalLayoutListener() {
-					@Override
-					public void onGlobalLayout() {
-						createWordMask();
+	// private void getMeasureWidthAndHeight() {
+	// getViewTreeObserver().addOnGlobalLayoutListener(
+	// new OnGlobalLayoutListener() {
+	// @Override
+	// public void onGlobalLayout() {
+	// createWordMask();
+	//
+	// getViewTreeObserver()
+	// .removeOnGlobalLayoutListener(this);
+	// }
+	// });
+	// }
+	
+	/**
+	 * 创建歌词的遮罩
+	 */
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
+		createWordMask();
+		
 
-						getViewTreeObserver()
-								.removeOnGlobalLayoutListener(this);
-					}
-				});
-	}
-
+    }
 	private void createWordMask() {
 
-		mMaskBmp = Bitmap.createBitmap(getMeasuredWidth(),
+		if (mMaskBmp != null || wordLines.size() == 0) {
+	
+			return;
+		}
+		
+		mMaskBmp = Bitmap.createBitmap(getAvailableWidth(),
 				mTextRect.height() * 2, Bitmap.Config.ARGB_8888);
 
 		Canvas maskCanvas = new Canvas(mMaskBmp);
 
 		maskCanvas.drawColor(mSongWordColor);
+		
 	}
-
+	
 	private void calcWordLinesDrawWidth() {
 		for (int i = 0; i < wordLines.size(); i++) {
 			wordLines.get(i).calcWidth();
@@ -153,14 +173,66 @@ public class ShowSongWordView extends View {
 
 	protected void onDraw(Canvas canvas) {
 
-		drawCurWordLine(canvas);
+		if (wordLines.size() == 0) {
+			drawEmptyWord(canvas); // 提示没歌词
+		} else {
+				drawCurWordLine(canvas);
 
-		drawNextWordLine(canvas);
+				drawNextWordLine(canvas);
+			
+		}
+	}
+	
+	private void drawEmptyWord(Canvas canvas) {
+		int drawX = (getAvailableWidth() - mTextRect.width() * NO_WORDS.length()) / 2;
+		int drawY = (getAvailableHeight() + mTextRect.height()) / 2;
+		canvas.drawText(NO_WORDS, drawX, drawY, mPaint);
+	}
+	
+	/**
+	 * 获取减去padding之后的值
+	 * @return
+	 */
+	private int getAvailableWidth() {
+		return getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	private int getAvailableHeight() {
+		return getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+	}
+	
+	private void drawNextWordLine(Canvas canvas) {
+
+		int lineIndex = findNotEmptySongLine(mCurSongingLine + 1);
+		drawWorldLine(canvas, lineIndex, mNextDrawTextUp);
+	}
+
+	private void drawCurWordLine(Canvas canvas) {
+
+		WordLine wordLine = wordLines.get(mCurSongingLine);
+
+		int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null,
+				Canvas.ALL_SAVE_FLAG);
+		drawWorldLine(canvas, mCurSongingLine, mCurDrawTextUp); // 画普通行
+		mPaint.setXfermode(mMaskXfermode);
+		canvas.clipRect(calcDrawMaskX(wordLine), calcDrawMaskY(wordLine),
+				calcDrawMaskX(wordLine) + mCurLineProgress, getHeight());
+
+		canvas.drawBitmap(mMaskBmp, 0, calcDrawMaskY(wordLine), mPaint); // 画遮罩
+		mPaint.setXfermode(null);
+		canvas.restoreToCount(layerId);
 	}
 
 	public void setCurPlayTime(int curTime) {
+		if(wordLines.size() == 0) {
+			return;
+		}
+		
+		
 		for (int i = 0; i < wordLines.size(); i++) {
-
 			WordLine wordLine = wordLines.get(i);
 			if (wordLine.time <= curTime
 					&& (wordLine.time + wordLine.duration) >= curTime) {
@@ -202,28 +274,12 @@ public class ShowSongWordView extends View {
 		mMaskXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
 	}
 
-	private void drawCurWordLine(Canvas canvas) {
-
-		WordLine wordLine = wordLines.get(mCurSongingLine);
-
-		int layerId = canvas.saveLayer(0, 0, getWidth(), getHeight(), null,
-				Canvas.ALL_SAVE_FLAG);
-		drawWorldLine(canvas, mCurSongingLine, mCurDrawTextUp); // 画普通行
-		mPaint.setXfermode(mMaskXfermode);
-		canvas.clipRect(calcDrawMaskX(wordLine), calcDrawMaskY(wordLine),
-				calcDrawMaskX(wordLine) + mCurLineProgress, getHeight());
-
-		canvas.drawBitmap(mMaskBmp, 0, calcDrawMaskY(wordLine), mPaint); // 画遮罩
-		mPaint.setXfermode(null);
-		canvas.restoreToCount(layerId);
-	}
-
 	private float calcDrawMaskX(WordLine wordLine) {
 		float drawX = 0;
 		if (mCurDrawTextUp) {
-			drawX = 0;
+			drawX = getPaddingLeft();
 		} else {
-			drawX = getMeasuredWidth() - wordLine.width - mTextRect.width() / 2;
+			drawX = getMeasuredWidth() - getPaddingRight() - wordLine.width - mTextRect.width() / 2;
 		}
 
 		return drawX;
@@ -232,33 +288,31 @@ public class ShowSongWordView extends View {
 	private float calcDrawMaskY(WordLine wordLine) {
 		float drawY = 0;
 		if (mCurDrawTextUp) {
-			drawY = mTextRect.height() / 3;
+			drawY = getPaddingTop() + mTextRect.height() / 3;
 		} else {
-			drawY = getMeasuredHeight() - mTextRect.height() * 2;
+			drawY = getMeasuredHeight() - getPaddingBottom() - mTextRect.height() * 2;
 		}
 		return drawY;
 	}
-
-	private void drawNextWordLine(Canvas canvas) {
-
-		int lineIndex = findNotEmptySongLine(mCurSongingLine + 1);
-		drawWorldLine(canvas, lineIndex, mNextDrawTextUp);
-	}
+	
+	
 
 	private void drawWorldLine(Canvas canvas, int wordLineIndex,
 			boolean isDrawUp) {
 		if (wordLineIndex != -1) {
 			WordLine wordLine = wordLines.get(wordLineIndex);
 			if (isDrawUp) {
-				canvas.drawText(wordLine.words, mTextRect.width() / 2,
-						mTextRect.height() * 3 / 2, mPaint);
+				canvas.drawText(wordLine.words, getPaddingLeft() +  mTextRect.width() / 2,
+						getPaddingTop() + mTextRect.height() * 3 / 2, mPaint);
 			} else {
-				canvas.drawText(wordLine.words, getMeasuredWidth()
+				canvas.drawText(wordLine.words, getMeasuredWidth() - getPaddingRight()
 						- wordLine.width - mTextRect.width() / 2,
-						getMeasuredHeight() - mTextRect.height() / 2, mPaint);
+						getMeasuredHeight() - getPaddingBottom() - mTextRect.height() / 2, mPaint);
 			}
 		}
 	}
+	
+	
 
 	public void setSongWords(int resId) {
 		if (wordLines != null) {
@@ -288,6 +342,11 @@ public class ShowSongWordView extends View {
 	}
 
 	private void calcWordLineDurationTime() {
+		
+		if(wordLines.size() == 0) {
+			return;
+		}
+		
 		for (int i = 0; i < wordLines.size() - 1; i++) {
 			WordLine curWordLine = wordLines.get(i);
 			WordLine nextWordLine = wordLines.get(i + 1);

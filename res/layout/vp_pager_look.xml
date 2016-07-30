@@ -1,110 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yluo="http://schemas.android.com/apk/res/com.yluo.yluomusic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="64dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/skin_navigation_tab_pure_bg" />
 
-        <ImageView
-            android:id="@+id/iv_viewpager_look"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/main_content_look_viewpager_imageview" />
-    </RelativeLayout>
+            android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            <!-- 后面放滚动的viewpager的 -->
 
-        <TextView
-            android:id="@+id/tv_listen_mv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/main_content_look_tv_mv"
-            android:gravity="center"
-            android:text="MV" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/picture_banner" />
 
-        <TextView
-            android:id="@+id/tv_listen_star_live"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/main_content_look_tv_star_live"
-            android:gravity="center"
-            android:text="繁星直播" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp" >
 
-        <TextView
-            android:id="@+id/tv_listen_phone_live"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="10dp"
-            android:drawableTop="@drawable/main_content_look_tv_phone_live"
-            android:gravity="center"
-            android:text="手机直播" />
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll_music_look_mv"
+                    style="@style/main_content_listen_ll" >
 
-    <View
-        style="@style/main_content_live_line"/>
-    
+                    <com.yluo.yluomusic.ui.widget.YluoTextView
+                        style="@style/main_content_listen_mainbutton_textview"
+                        android:drawableTop="@drawable/skin_fx_main_header_mv_normal"
+                        android:text="MV"
+                        yluo:press_drawable="@drawable/skin_fx_main_header_mv_pressed" />
+                </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_liveshow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:id="@+id/ll_music_look_star_live"
+                    style="@style/main_content_listen_ll" >
 
-        <TextView
-            style="@style/main_content_look_live"
-            android:drawableLeft="@drawable/main_content_look_tv_liveshow"
-            android:text="酷狗LIVE"
-            />
-    </RelativeLayout>
+                    <com.yluo.yluomusic.ui.widget.YluoTextView
+                        style="@style/main_content_listen_mainbutton_textview"
+                        android:drawableTop="@drawable/skin_fx_main_header_live_normal"
+                        android:text="繁星直播"
+                        yluo:press_drawable="@drawable/skin_fx_main_header_live_pressed" />
+                </LinearLayout>
 
-    <View
-        style="@style/main_content_live_line"/>
-    
-    <RelativeLayout
-        android:id="@+id/rl_star_online"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:id="@+id/ll_music_look_phone_live"
+                    style="@style/main_content_listen_ll" >
 
-        <TextView
-            style="@style/main_content_look_live"
-            android:drawableLeft="@drawable/main_content_look_tv_star_online"
-            android:text="明显在线"
-             />
-    </RelativeLayout>
+                    <com.yluo.yluomusic.ui.widget.YluoTextView
+                        style="@style/main_content_listen_mainbutton_textview"
+                        android:drawableTop="@drawable/skin_fx_main_header_mobile_live_normal"
+                        android:text="手机直播"
+                        yluo:press_drawable="@drawable/skin_fx_main_header_mobile_live_pressed" />
+                </LinearLayout>
+            </LinearLayout>
 
-    <View
-        style="@style/main_content_live_line"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
 
-    <RelativeLayout
-        android:id="@+id/rl_show_offline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
 
-        <TextView
-            style="@style/main_content_look_live"
-            android:drawableLeft="@drawable/main_content_look_tv_show_offline"
-            android:text="线下演出"
-             />
+                <com.yluo.yluomusic.ui.widget.YluoTextView
+                    style="@style/main_content_listen_live"
+                    android:drawableLeft="@drawable/skin_fx_main_header_kugou_live_icon"
+                    android:text="酷狗LIVE" />
+            </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="宋茜女神见面会" />
-    </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
 
-    <View
-        style="@style/main_content_live_line"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <com.yluo.yluomusic.ui.widget.YluoTextView
+                    style="@style/main_content_listen_live"
+                    android:drawableLeft="@drawable/skin_fx_main_header_xyf_icon"
+                    android:text="明星在线" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <com.yluo.yluomusic.ui.widget.YluoTextView
+                    style="@style/main_content_listen_live"
+                    android:drawableLeft="@drawable/skin_fx_main_header_xianxia_icon"
+                    android:text="线下演出" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="张根硕深圳演唱会"
+                    android:textColor="#ff959595" />
+            </RelativeLayout>
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

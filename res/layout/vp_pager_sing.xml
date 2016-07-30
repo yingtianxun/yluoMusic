@@ -2,239 +2,278 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-     android:background="@android:color/white"
+    android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="64dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/skin_navigation_tab_pure_bg" />
 
-        <ImageView
-            android:id="@+id/tv_viewpager_sing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_content_sing_viewpager_imageview" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp" >
-
-        <ImageView
-            android:id="@+id/iv_ising"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/main_content_sing_ising_icon" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white" >
 
         <LinearLayout
-            android:id="@+id/ll_sing_nearby"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/iv_ising"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_ising" >
+            android:orientation="vertical" >
+
+            <!-- 后面放滚动的viewpager的 -->
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/main_content_sing_map_icon" />
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/dof" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="223dp" >
+
+                <ImageView
+                    android:id="@+id/iv_ising"
+                    android:layout_width="87dp"
+                    android:layout_height="87dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/skin_ktv_ic_main_k_normal" />
+                <!-- 左上角的附近人 -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="112dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_toLeftOf="@id/iv_ising"
+                    android:gravity="center_vertical" >
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/skin_ktv_ic_main_nearby_sing_normal" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="附近"
+                            android:textColor="#ff000000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9408人"
+                            android:textColor="#ff929292"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- 右上角的排行 -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="112dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_toRightOf="@id/iv_ising"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/skin_ktv_ic_main_same_city_normal" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="排行"
+                            android:textColor="#ff000000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="深圳"
+                            android:textColor="#ff929292"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- 左下角的关注 -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="112dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="14dp"
+                    android:layout_toLeftOf="@id/iv_ising"
+                    android:gravity="center_vertical" >
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/skin_ktv_ic_main_friend_normal" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="关注"
+                            android:textColor="#ff000000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9408人"
+                            android:textColor="#ff929292"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- 右下角的我的 -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="112dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_toRightOf="@id/iv_ising"
+                    android:gravity="center_vertical" >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/skin_ktv_ic_main_my_home_normal" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我的"
+                            android:textColor="#ff000000" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="深圳"
+                            android:textColor="#ff929292"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+                
+                <!-- 左线 -->
+                <View 
+                    android:layout_toLeftOf="@id/iv_ising"
+                    android:layout_marginRight="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:background="#ffECECEC"/>
+                <!-- 右线 -->
+                 <View 
+                    android:layout_toRightOf="@id/iv_ising"
+                    android:layout_marginLeft="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="80dp"
+                    android:layout_height="1dp"
+                    android:background="#ffECECEC"/>
+                 <!-- 上线 -->
+                   <View 
+                    android:layout_above="@id/iv_ising"
+                    android:layout_marginBottom="14dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#ffECECEC"/>
+                   
+                   <!-- 下线 -->
+                   <View 
+                    android:layout_below="@id/iv_ising"
+                    android:layout_marginTop="14dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:background="#ffECECEC"/>
+                
+                
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" >
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <com.yluo.yluomusic.ui.widget.YluoTextView
+                    android:id="@+id/ytx_match"
+                    style="@style/main_content_listen_live"
+                    android:drawableLeft="@drawable/skin_ktv_mainpage_game_icon"
+                    android:text="大赛" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/ytx_match"
+                    android:src="@drawable/e3m" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="附近" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="1000人" />
-            </LinearLayout>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="张根硕深圳演唱会"
+                    android:textColor="#ff959595" />
+            </RelativeLayout>
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFEEEEEE" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_sing_range"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/iv_ising"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_ising" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/main_content_sing_range_icon" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="排行" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="深圳" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_sing_fellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_ising"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/iv_ising" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/main_content_sing_follow_icon" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="附近" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="1000人" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_sing_my"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_ising"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_ising" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/main_content_sing_my_icon" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="附近" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="1000人" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="30dp"
-            android:layout_above="@id/iv_ising"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10px"
-            android:background="#55000000" />
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="30dp"
-            android:layout_below="@id/iv_ising"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:background="#55000000" />
-
-        <View
-            android:layout_width="80dp"
-            android:layout_height="1px"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@id/iv_ising"
-            android:background="#55000000" />
-
-        <View
-            android:layout_width="80dp"
-            android:layout_height="1px"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/iv_ising"
-            android:background="#55000000" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#55000000" />
-
-    <RelativeLayout
-        android:id="@+id/rl_sing_ward"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/tv_sing_ward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/main_content_sing_iv_ward"
-            android:padding="10dp"
-            android:text="大赛" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tv_sing_ward"
-            android:src="@drawable/main_content_sing_tv_new_message" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="有一种音乐叫治愈系" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#55000000" />
+    </ScrollView>
 
 </LinearLayout>

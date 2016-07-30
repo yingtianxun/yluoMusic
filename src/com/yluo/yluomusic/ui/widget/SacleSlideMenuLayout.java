@@ -38,6 +38,8 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 
 	private int mSlideLayoutWidth;
 
+
+
 	public SacleSlideMenuLayout(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init();
@@ -174,15 +176,24 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	@Override
 	public void layOutChildren(boolean changed, int left, int top, int right,
 			int bottom) {
+		// 触发多次初始化的时候
+		
 		layoutLeftMenu();
 
 		layoutContent();
 
 		layoutRighttMenu();
-
-		moveView(getCloseMenuPosition());
+		// bug 所在
+		if(isMenuClose()) {
+			Log.d(TAG, "菜单关闭的------------");
+			moveView(getCloseMenuPosition());
+		}
+		
+		
 	}
-
+	
+//	private 
+	
 	private void layoutLeftMenu() {
 		if (mLeftViewMenu != null) {
 			mLeftViewMenu.layout(0, 0, mLeftViewMenu.getMeasuredWidth(),
@@ -345,7 +356,7 @@ public class SacleSlideMenuLayout extends AbstractSlideMenuLayout {
 	protected void openMenu(float curVelectoryDirection) {
 		
 		if (isMeetOpenLeftMenu() || curVelectoryDirection > 0) {
-			Log.d(TAG, "-------------:打开左菜单" );
+			Log.d(TAG, "-------------:打开 菜单" );
 			openLeftMenu();
 		} else if (isMeetOpenRightMenu() || curVelectoryDirection < 0) {
 			
