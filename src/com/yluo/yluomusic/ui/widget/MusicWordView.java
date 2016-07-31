@@ -361,6 +361,8 @@ public class MusicWordView extends View {
 			}
 			if (mIsMoveX) {
 				getParent().requestDisallowInterceptTouchEvent(false);
+				// Ìø³ö
+				break;
 			}
 
 			mScorllDisY -= disY;
