@@ -202,4 +202,12 @@ public class PlaySongBarFragment extends BaseFragment {
 		
 	}
 
+	public void onUpdateSongRestart() {
+		iBtnPlaySong.setImageResource(R.drawable.skin_kg_ic_playing_bar_pause_default);
+		
+		
+		cimvRotateIcon.startRotation();
+		
+	}
+
 }

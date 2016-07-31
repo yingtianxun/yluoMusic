@@ -133,5 +133,9 @@ public class PlaySongPageFragment extends BaseFragment{
 	public void onUpdatePauseSong() {
 		ibtnPlayMusic.setImageResource(R.drawable.djd);
 	}
+	public void onUpdateSongRestart() {
+		ibtnPlayMusic.setImageResource(R.drawable.djc);
+		
+	}
 	
 }

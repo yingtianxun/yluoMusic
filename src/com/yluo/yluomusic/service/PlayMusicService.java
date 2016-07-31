@@ -76,15 +76,14 @@ public class PlayMusicService extends Service {
 			return ;
 		}
 		
-		if(mIsPause) {
-			mediaPlayer.start();
-			handler.post(listenRunable);
+		if(mIsPause) { // 停止,重新播放
+			restartMusic();
+			// 重新开始的,那要发一下广播才行
 			return;
 		}
 		if(isPlaying) {
-			
-			isPlaying = false;
 			pauseMusic();
+			return;
 		}
 		
 		mediaPlayer = MediaPlayer.create(this, R.raw.song);
@@ -138,11 +137,24 @@ public class PlayMusicService extends Service {
 	
 	// 发送暂停的广播
 	private void pauseMusic() {
+		isPlaying = false;
 		mIsPause = true;
 		mediaPlayer.pause();
 		Intent intent = new Intent();
 		intent.setAction("com.yluo.yluomusic.songpause");
 		sendBroadcast(intent);
+	}
+	
+	private void restartMusic() {
+		mediaPlayer.start();
+		isPlaying = true;
+		handler.post(listenRunable);
+		mIsPause = false;
+		
+		Intent intent = new Intent();
+		intent.setAction("com.yluo.yluomusic.restart");
+		sendBroadcast(intent);
+		// 重新开始的,那要发一下广播才行
 	}
 	
 	private void broadcastSongLrc(SongInfo songInfo) {
@@ -212,7 +224,9 @@ public class PlayMusicService extends Service {
 
 		@Override
 		public void run() {
-			
+			if(mIsPause) {
+				return;
+			}
 			songPlayProgressIntent.putExtra("curProgress", mediaPlayer.getCurrentPosition());
 			
 			sendBroadcast(songPlayProgressIntent);

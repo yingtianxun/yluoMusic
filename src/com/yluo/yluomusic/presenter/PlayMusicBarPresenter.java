@@ -84,4 +84,10 @@ public class PlayMusicBarPresenter extends BasePlayMusicPresent {
 		}
 	}
 
+	@Override
+	public void updateSongRestart() {
+		barFragment.onUpdateSongRestart();
+		
+	}
+
 }

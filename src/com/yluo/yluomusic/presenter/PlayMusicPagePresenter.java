@@ -53,5 +53,10 @@ public class PlayMusicPagePresenter extends BasePlayMusicPresent{
 			e.printStackTrace();
 		}
 	}
+	@Override
+	public void updateSongRestart() {
+		pageFragment.onUpdateSongRestart();
+		
+	}
 
 }

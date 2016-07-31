@@ -47,6 +47,9 @@ public abstract class BasePlayMusicPresent extends BasePresenter {
 	protected IntentFilter songCompleteFilter = new IntentFilter(
 			"com.yluo.yluomusic.complete");
 	
+	protected IntentFilter songRestartFilter = new IntentFilter(
+			"com.yluo.yluomusic.restart");
+	
 	private SongProgressReceiver progressReceiver;
 	private SongLrcReceiver lrcReceiver;
 	private SongDurationReceiver durationReceiver;
@@ -104,6 +107,7 @@ public abstract class BasePlayMusicPresent extends BasePresenter {
 	};
 	private SongPauseReceiver pauseReceiver;
 	private SongCompleteReceiver completeReceiver;
+	private SongRestartReceiver restartReceiver;
 
 
 	protected void registerMusicReceiver() {
@@ -137,6 +141,12 @@ public abstract class BasePlayMusicPresent extends BasePresenter {
 				songCompleteFilter);
 		
 		
+		restartReceiver = new SongRestartReceiver();
+		
+		fragment.getActivity().registerReceiver(restartReceiver,
+				songRestartFilter);
+		
+		
 	}
 
 	protected void unRegisterMusicReceiver() {
@@ -149,6 +159,8 @@ public abstract class BasePlayMusicPresent extends BasePresenter {
 		fragment.getActivity().unregisterReceiver(pauseReceiver);
 		
 		fragment.getActivity().unregisterReceiver(completeReceiver);
+		
+		fragment.getActivity().unregisterReceiver(restartReceiver);
 	}
 
 	public void playMusic(String songName) {
@@ -214,6 +226,15 @@ public abstract class BasePlayMusicPresent extends BasePresenter {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			updateSongComplete();
+		}
+	}
+	
+	public abstract void updateSongRestart();
+
+	class SongRestartReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			updateSongRestart();
 		}
 	}
 	
