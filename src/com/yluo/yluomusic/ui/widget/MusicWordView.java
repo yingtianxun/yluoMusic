@@ -396,7 +396,7 @@ public class MusicWordView extends View {
 				}
 			}
 
-			postDelayed(mCancleDrawBtnRunable, 2000);
+			postDelayed(mCancleDrawBtnRunable, 1500);
 			mIsCancleDrawBtnRunable = true;
 			mIsTouchDown = false;
 		}
